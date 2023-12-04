@@ -8,6 +8,7 @@
 # testing
 /coverage
 
+
 # production
 /build
 
@@ -21,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+#TODO: add private folder for API key!
+src/private
