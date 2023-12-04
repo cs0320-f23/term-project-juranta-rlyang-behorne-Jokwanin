@@ -1,0 +1,60 @@
+/*
+  This is a reasonable starting point for the CSS in Mock.
+  Positioning in CSS can sometimes be annoying to manage, so we've opted to 
+  give you this starter CSS. Feel free to modify it as you wish, though.
+*/
+
+.repl {
+    /* defines the flex container */
+    display: flexbox;
+
+    /* defines the direction of the container: column like layout*/
+    flex-direction: column;
+
+    /* defines items to be lined up in the center */
+    align-items: center;
+    justify-content: space-between;
+    position:relative;
+    min-height:95vh;    
+}
+
+.repl-history {   
+        /* defines the flex container */
+    display: flexbox;
+
+    /* defines the direction of the container: column like layout*/
+    flex-direction: column;
+
+    /* defines items to be lined up in the center */
+    align-items: center;   
+    height:55vh;   
+    margin: auto;
+    display: block;
+    overflow: scroll;    
+}
+
+.repl-input {        
+    margin: auto;    
+    height:10vh;
+}
+.repl-command-box {
+    width: 90%;            
+    margin: auto;
+    display: block;
+}
+button{
+    margin: auto;
+    display: block;
+}
+table,
+td {
+    border: 2px solid #1a0045;
+}
+table {
+    margin: 0 auto;
+    width: auto;
+}
+thead {
+    font-weight: bold;
+    color:rgb(3, 68, 12);
+}
