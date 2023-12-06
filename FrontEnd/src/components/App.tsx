@@ -1,5 +1,5 @@
 import '../styles/App.css';
-import REPL from './REPLParts/REPL';
+import REPL from './SearcherParts/Searcher';
 
 /**
  * This is the highest level component!
@@ -7,10 +7,10 @@ import REPL from './REPLParts/REPL';
 function App() {
   return (
     <div className="App">
-      <p className="App-header"
-      aria-lable = "Header for REPL"
-      aria-description = "REPL Application">
-        <h1>REPL</h1>
+      <p className="Movie Mapper"
+      aria-lable = "Header for Movie Mapper"
+      aria-description = "Movie Searcher">
+        <h1 className="App-header"> Movie Mapper</h1>
       </p>
       <REPL />      
     </div>

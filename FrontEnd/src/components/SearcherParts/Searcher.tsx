@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../../styles/main.css';
-import { REPLHistory } from './REPLHistory';
-import { REPLInput } from './REPLInput';
+import { REPLInput } from './MovieInput';
+import { SearchResults } from './SearchResults';
 /* 
   You'll want to expand this component (and others) for the sprints! Remember 
   that you can pass "props" as function arguments. If you need to handle state 
@@ -15,23 +15,14 @@ export default function REPL() {
   const [history, setHistory] = useState<Obby[]>([])
   const [modeB, setModeB] = useState(true);
   const [currentFile, setCurrentFile] = useState<string[][]>([[]]);
+  const [results, setResults] = useState<string[]>([]);
   
   //const updateHistory
   return (
     <div className="repl">  
-      {/*This is where the REPLHistory goes... You also may choose to add it within your REPLInput 
-      component or somewhere else depending on your component organization. What are the pros and cons of each? */}
-      {/* CHANGED */}
-      <REPLHistory history ={history} modeB = {modeB} currentFile={currentFile}/>
-      
-      {modeB ? (
-        <p>Current Mode: Brief</p>
-      ) : (
-        <p>Current Mode: Verbose</p>
-        )}
-      {/* CHANGED */}
       <REPLInput modeB = {modeB} history={history} setHistory={setHistory} setModeB={setModeB} 
       setCurrentFile={setCurrentFile} currentFile={currentFile}/>
+      <SearchResults results = {results}/>
     </div>
   );
 }

@@ -46,15 +46,32 @@ button{
     margin: auto;
     display: block;
 }
-table,
 td {
-    border: 2px solid #1a0045;
+    border: 20px  #1a0045;
+    vertical-align: top;
+    width: 25px;
+    height: 25px;
+    overflow: auto;
+    white-space: normal; 
+
 }
 table {
     margin: 0 auto;
     width: auto;
+    border-collapse: separate;
+    border-spacing: 60px;
+    table-layout: fixed;
+    width: 100%;
 }
 thead {
     font-weight: bold;
     color:rgb(3, 68, 12);
 }
+
+
+img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 200px;
+  }
