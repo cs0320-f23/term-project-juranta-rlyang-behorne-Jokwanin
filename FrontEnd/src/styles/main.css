@@ -64,7 +64,7 @@ tr {
 } 
 
 td {
-    border: 2px solid #FFD700;
+    border: 3px solid #C19875;
     vertical-align: top;
     width: 400px;
     height: 400px;
@@ -85,10 +85,13 @@ td {
 
 
 img {
-    border: 4px solid #AB6B51;
+    border: 4px solid #F2E2BC;
     border-radius: 4px;
     padding: 5px;
     width: 200px;
+    max-width: 200px;
+    height: 200px;
+    max-height: 200px;
   }
 
   .center{
