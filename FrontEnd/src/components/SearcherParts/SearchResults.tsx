@@ -36,7 +36,7 @@ export function SearchResults(props: SearchResultsProps){
                 <td className='scrollable-cell'>
                 <img
                     // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
+                src="..\..\images\Pirates.jpg"
                 alt="Grapefruit slice atop a pile of other slices" />
                 <div className='description-div'><p> START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 

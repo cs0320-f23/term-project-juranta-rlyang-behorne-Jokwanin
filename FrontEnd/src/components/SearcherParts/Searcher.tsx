@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../../styles/main.css';
-import { REPLInput } from './MovieInput';
+import { MovieInput } from './MovieInput';
 import { SearchResults } from './SearchResults';
 /* 
   You'll want to expand this component (and others) for the sprints! Remember 
@@ -10,7 +10,7 @@ import { SearchResults } from './SearchResults';
   This is a great top level component for the REPL. It's a good idea to have organize all components in a component folder.
   You don't need to do that for this gearup.
 */
-export default function REPL() {
+export default function Searcher() {
   // A kind of shared state that holds all the commands submitted.
   const [history, setHistory] = useState<Obby[]>([])
   const [modeB, setModeB] = useState(true);
@@ -19,8 +19,8 @@ export default function REPL() {
   
   //const updateHistory
   return (
-    <div className="repl">  
-      <REPLInput modeB = {modeB} history={history} setHistory={setHistory} setModeB={setModeB} 
+    <div className="Searcher">  
+      <MovieInput modeB = {modeB} history={history} setHistory={setHistory} setModeB={setModeB} 
       setCurrentFile={setCurrentFile} currentFile={currentFile}/>
       <SearchResults results = {results}/>
     </div>

@@ -29,18 +29,29 @@ h1 {
 }
 
 button {
+  display: inline-block;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  border: none;
+  padding: 0.8em 3em;
+  font-size: 1.2em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  position: relative;
+  z-index: 1;
+  transition: .3s ease-in;
+}
+button:before,
+button:after{
+  position: absolute;
+  content: "";
+  z-index: -1;
 }
 button:hover {
-  border-color: #646cff;
+  /*border: 2px solid rgb(97, 137, 133);*/
+  color: rgb(97, 137, 133);
+  background-color: #17181c;
 }
 button:focus,
 button:focus-visible {
@@ -50,7 +61,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: rgb(97, 137, 133);
   }
   a:hover {
     color: #747bff;
