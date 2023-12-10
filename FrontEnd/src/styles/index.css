@@ -50,12 +50,20 @@ button:after{
 }
 button:hover {
   /*border: 2px solid rgb(97, 137, 133);*/
-  color: rgb(97, 137, 133);
+  color: rgb(162, 198, 194);
   background-color: #17181c;
+}
+.filters:hover{
+  color: rgb(255, 255, 255);
+  background-color:rgb(15, 68, 63);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+.toggled {
+  color: rgb(255, 255, 255);
+  background-color:rgb(15, 68, 63);
 }
 
 @media (prefers-color-scheme: light) {

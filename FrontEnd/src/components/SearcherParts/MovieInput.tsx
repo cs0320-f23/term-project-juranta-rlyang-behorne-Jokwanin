@@ -21,7 +21,7 @@ export function MovieInput(props : MovieInputProps) {
 
   // Manages the contents of the input box
   const [commandString, setCommandString] = useState<string>("");
-
+  const [toggle, setToggle] = useState<string>("filters");
   /**
    * // This function is triggered when the button is clicked.
    * Parses the input, executes the command, and updates the history.
@@ -29,9 +29,15 @@ export function MovieInput(props : MovieInputProps) {
   async function handleSubmit(commandString: string) {
     if(commandString !== ""){
       setCommandString("");
-
     }
     
+  }
+  function handleFilterClick(){
+    if(toggle === "filters"){
+      setToggle("toggled");
+    } else {
+      setToggle("filters");
+    }
   }
 
   /**
@@ -68,10 +74,10 @@ export function MovieInput(props : MovieInputProps) {
         />
       </fieldset>
       <div className="button-container">
-        <button
+        <button className={toggle}
           aria-label="Filters Button"
           aria-description="Click this button to show Filters"
-          onClick={() => handleSubmit(commandString)}
+          onClick={() => handleFilterClick()}
         >
           Filters
         </button>

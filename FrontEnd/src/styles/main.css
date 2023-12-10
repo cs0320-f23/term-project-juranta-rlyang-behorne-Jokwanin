@@ -37,9 +37,8 @@
     margin: auto;    
     height:10vh;
 }
-input:hover {
-    color:aqua;
-    box-shadow: #000000;
+input:hover{
+    box-shadow: 2px 2px 2px #000000;
 }
 .repl-command-box {
     width: 97%;            
@@ -73,7 +72,9 @@ tr {
 td {
     border: 3px solid #C19875;
     vertical-align: top;
-    width: 400px;
+    max-height: 400px;
+    max-width: 275px;
+    width: 275px;
     height: 400px;
     overflow-y: auto;
     white-space: normal;
@@ -86,7 +87,7 @@ td {
 }
 
 .description-div {
-    max-height: 200px;
+    max-height: 400px;
     overflow-y: auto;
 }
 .button-container {
@@ -111,20 +112,22 @@ fieldset {
     padding-left: 30px;
     /*padding-right: 150px;*/
 }
+.in-box{
+    padding: 4px;
+    text-align: center;
+}
 
 img {
     border: 4px solid #F2E2BC;
     border-radius: 4px;
     padding: 0px;
-    width: 200px;
-    max-width: 200px;
-    height: 200px;
-    max-height: 200px;
+    width: auto;
+    max-width: 150px;
+    height: auto;
+    max-height: 240x;
   }
 
   .center{
     margin-left: auto;
     margin-right: auto;
   }
-
-
