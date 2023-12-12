@@ -40,7 +40,7 @@ public final class Main {
     String identifier = myObj.nextLine().toLowerCase();
     try {
       FileReader fileReader = new FileReader(filename);
-      Search mySearch = new Search(fileReader, target, identifier, hasHeader);
+      Search mySearch = new Search(fileReader, target, identifier, hasHeader, false);
       mySearch.beginSearch();
 
     } catch (IOException e) {
