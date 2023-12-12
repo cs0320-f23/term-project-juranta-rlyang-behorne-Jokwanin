@@ -16,6 +16,7 @@ public class Search {
   private String identifier;
   private boolean hasHeader;
   private List<ArrayList<String>> parsedData;
+  private boolean oneItem;
 
   /**
    * The constructor of the search class.
@@ -25,11 +26,12 @@ public class Search {
    * @param identifier - a column number/word in the form of a string
    * @param hasHeader - a boolean of whether the file has a header
    */
-  public Search(Reader reader, String target, String identifier, boolean hasHeader) {
+  public Search(Reader reader, String target, String identifier, boolean hasHeader, boolean searchOne) {
     this.reader = reader;
     this.target = target;
     this.identifier = identifier;
     this.hasHeader = hasHeader;
+    this.oneItem = searchOne;
   }
 
   /** The beginSearch method parses the data and decides how to search the file. */
@@ -92,8 +94,10 @@ public class Search {
     for (ArrayList<String> row : this.parsedData) {
       if (columnNumber >= 0 && columnNumber < row.size()) {
         if (row.get(columnNumber).equals(this.target)) {
-          System.out.println("Keyword found in row: " + row);
           rowResults.add(row);
+          if (this.oneItem) {
+            break;
+          }
         }
       }
       if (columnNumber > row.size() || columnNumber < 0) {
@@ -106,8 +110,10 @@ public class Search {
   private void searchAllRows(ArrayList<ArrayList<String>> rowResults) {
     for (ArrayList<String> row : this.parsedData) {
       if (row.contains(this.target)) {
-        System.out.println("Keyword found in row: " + row);
         rowResults.add(row);
+        if (this.oneItem) {
+          break;
+        }
       }
     }
   }
