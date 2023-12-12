@@ -1,0 +1,133 @@
+/*	
+  This is a reasonable starting point for the CSS in Mock.	
+  Positioning in CSS can sometimes be annoying to manage, so we've opted to 	
+  give you this starter CSS. Feel free to modify it as you wish, though.	
+*/	
+
+.repl {	
+    /* defines the flex container */	
+    display: flexbox;	
+
+    /* defines the direction of the container: column like layout*/	
+    flex-direction: column;	
+
+    /* defines items to be lined up in the center */	
+    align-items: center;	
+    justify-content: space-between;	
+    position:relative;	
+    min-height:95vh;    	
+}	
+
+.repl-history {   	
+        /* defines the flex container */	
+    display: flexbox;	
+
+    /* defines the direction of the container: column like layout*/	
+    flex-direction: column;	
+
+    /* defines items to be lined up in the center */	
+    align-items: center;   	
+    height:55vh;   	
+    margin: auto;	
+    display: block;	
+    overflow: scroll;    	
+}	
+
+.repl-input {        	
+    margin: auto;    	
+    height:10vh;	
+}	
+input:hover{	
+    box-shadow: 2px 2px 2px #000000;	
+}	
+.repl-command-box {	
+    width: 97%;            	
+    margin: auto;	
+    display: block;	
+    font-size: 0.9em;	
+    border-radius: 10px;	
+    padding: 5px 10px;	
+}	
+button{	
+    margin: auto;	
+    display: block;	
+}	
+
+ table {	
+    border: 20px solid rgb(206, 131, 9 0.621);	
+    border-collapse: collapse;	
+    /* margin: 0 auto;	
+    width: auto;	
+    	
+    border-spacing: 60px;	
+    table-layout: fixed;	
+    width: 100%; */	
+} 	
+tr {	
+    height: 400px;	
+    max-height: 400px;	
+
+} 	
+
+td {	
+    border: 3px solid #C19875;	
+    vertical-align: top;	
+    max-height: 400px;	
+    max-width: 275px;	
+    width: 275px;	
+    height: 400px;	
+    overflow-y: auto;	
+    white-space: normal;	
+} 	
+
+.scrollable-cell {	
+    max-width: 400px;	
+    max-height: 400px;	
+    overflow-y: auto;	
+}	
+
+.description-div {	
+    max-height: 400px;	
+    overflow-y: auto;	
+}	
+.button-container {	
+    padding: 10px 15px;	
+    display: flex;	
+    /*justify-content: center;*/	
+    position: absolute;	
+    top: 0; /* Aligns to the top of the form-container. Adjust as needed */	
+    right:0;	
+    /*width: 140px;*/	
+}	
+.button-container button {	
+    margin: 0 10px;	
+}	
+fieldset {	
+    width: 60%;	
+    margin: left;	
+    padding: 5px; 	
+}	
+.form-container {	
+    position: relative;	
+    padding-left: 30px;	
+    /*padding-right: 150px;*/	
+}	
+.in-box{	
+    padding: 4px;	
+    text-align: center;	
+}	
+
+img {	
+    border: 4px solid #F2E2BC;	
+    border-radius: 4px;	
+    padding: 0px;	
+    width: auto;	
+    max-width: 150px;	
+    height: auto;	
+    max-height: 240x;	
+  }	
+
+  .center{	
+    margin-left: auto;	
+    margin-right: auto;	
+  }	
