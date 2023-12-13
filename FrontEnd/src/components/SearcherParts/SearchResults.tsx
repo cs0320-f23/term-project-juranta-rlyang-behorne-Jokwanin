@@ -18,11 +18,13 @@ export function SearchResults(props: SearchResultsProps){
                 {/* ROW 1 */}
                 <tr>
                 <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> START Verbose Filler Text 
+                
+                <div className='description-div'>
+                    <img // class="fit-picture"
+                    src="..\..\images\grapefruit-slice.jpg"
+                    alt="Grapefruit slice atop a pile of other slices" />
+                    <p className='in-box'> 
+                    START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -34,11 +36,13 @@ export function SearchResults(props: SearchResultsProps){
                     END</p></div>
                 </td>
                 <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" />
-                <div className='description-div'><p> START Verbose Filler Text 
+                
+                <div className='description-div'>
+                    <img // class="fit-picture"
+                    src="..\..\images\lalaland.jpg"
+                    alt="Grapefruit slice atop a pile of other slices" />
+                    <p> 
+                    START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -50,19 +54,22 @@ export function SearchResults(props: SearchResultsProps){
                     END</p></div> 
                 </td>
                 <td className='scrollable-cell'>
+                
+                <div className='description-div'>
+                    <img
+                        // class="fit-picture"
+                    src="..\..\images\grapefruit-slice.jpg"
+                    alt="Grapefruit slice atop a pile of other slices" />
+                    <p> 
+                     Filler Text</p></div> 
+                </td>
+                {/* <td className='scrollable-cell'>
                 <img
                     // class="fit-picture"
                 src="..\..\images\grapefruit-slice.jpg"
                 alt="Grapefruit slice atop a pile of other slices" /> 
                 <div className='description-div'><p> Filler Text</p></div> 
-                </td>
-                <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td>
+                </td> */}
                 </tr>
                 <br></br>
                 <br></br>
@@ -70,11 +77,13 @@ export function SearchResults(props: SearchResultsProps){
                 {/* ROW 2 */}
                 <tr>
                 <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> START Verbose Filler Text 
+                 
+                <div className='description-div'>
+                    <img
+                        // class="fit-picture"
+                    src="..\..\images\grapefruit-slice.jpg"
+                    alt="Grapefruit slice atop a pile of other slices" />
+                    <p> START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -99,13 +108,13 @@ export function SearchResults(props: SearchResultsProps){
                 alt="Grapefruit slice atop a pile of other slices" /> 
                 <div className='description-div'><p> Filler Text</p></div> 
                 </td>
-                <td className='scrollable-cell'>
+                {/*<td className='scrollable-cell'>
                 <img
                     // class="fit-picture"
                 src="..\..\images\grapefruit-slice.jpg"
                 alt="Grapefruit slice atop a pile of other slices" /> 
                 <div className='description-div'><p> Filler Text</p></div> 
-                </td>
+                </td> */}
                 </tr>
                 <br></br>
                 <br></br>
@@ -113,11 +122,13 @@ export function SearchResults(props: SearchResultsProps){
                 {/* ROW 3 */}
                 <tr>
                 <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> START Verbose Filler Text 
+                
+                <div className='description-div'>
+                    <img
+                        // class="fit-picture"
+                    src="..\..\images\grapefruit-slice.jpg"
+                    alt="Grapefruit slice atop a pile of other slices" /> 
+                    <p> START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -142,13 +153,13 @@ export function SearchResults(props: SearchResultsProps){
                 alt="Grapefruit slice atop a pile of other slices" /> 
                 <div className='description-div'><p> Filler Text</p></div> 
                 </td>
-                <td className='scrollable-cell'>
+                {/* <td className='scrollable-cell'>
                 <img
                     // class="fit-picture"
                 src="..\..\images\grapefruit-slice.jpg"
                 alt="Grapefruit slice atop a pile of other slices" /> 
                 <div className='description-div'><p> Filler Text</p></div> 
-                </td>
+                </td> */}
                 </tr>
             </tbody>
         </table>
