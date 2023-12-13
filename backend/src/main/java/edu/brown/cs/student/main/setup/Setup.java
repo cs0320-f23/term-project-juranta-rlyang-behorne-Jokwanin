@@ -1,5 +1,8 @@
 package edu.brown.cs.student.main.setup;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.csv.FactoryFailureException;
 import edu.brown.cs.student.main.csv.creators.CreateArrayList;
 import edu.brown.cs.student.main.csv.creators.CreatorFromRow;
@@ -9,8 +12,14 @@ import edu.brown.cs.student.main.csv.searcher.Search;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 public class Setup {
 
@@ -74,8 +83,61 @@ public class Setup {
             movieData.put("ratings", ratingsMap.get(movie.get(0)));
             movieData.put("directors", this.directors.get(movie.get(0)));
             movieData.put("writers", this.writers.get(movie.get(0)));
+            HashMap<String, HashMap<String, String>> apiData = this.deserialize(new URL("https://api.themoviedb.org/3/find/"+movie.get(0)+"?external_source=imdb_id"));
             movieDatabase.put(movie.get(2), movieData);
         }
         return movieDatabase;
+    }
+
+    public HashMap<String, ArrayList<String>> setupGenre() {
+        HashMap<String, ArrayList<String>> genreDatabase = new HashMap<>();
+        for (ArrayList<String> movie:this.movieList) {
+            String[] genres = movie.get(8).split(",");
+            for (String genre: genres) {
+                if (!genreDatabase.containsKey(genre)) {
+                    genreDatabase.put(genre, new ArrayList<>());
+                }
+                genreDatabase.get(genre).add(movie.get(2));
+            }
+        }
+        return genreDatabase;
+    }
+
+    public HashMap<String, ArrayList<String>> setupPeopleDB() {
+        HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
+        for (ArrayList<String> movie:this.movieList) {
+            for (String director: this.directors.get(movie.get(0))) {
+                if (!peopleDatabase.containsKey(director)) {
+                    peopleDatabase.put(director, new ArrayList<>());
+                }
+                peopleDatabase.get(director).add(movie.get(2));
+            }
+            for (String writer: this.writers.get(movie.get(0))) {
+                if (!peopleDatabase.containsKey(writer)) {
+                    peopleDatabase.put(writer, new ArrayList<>());
+                }
+                peopleDatabase.get(writer).add(movie.get(2));
+            }
+        }
+
+        return peopleDatabase;
+    }
+
+
+    private static HttpURLConnection connect(URL requestURL) throws IOException {
+        URLConnection urlConnection = requestURL.openConnection();
+        HttpURLConnection clientConnection = (HttpURLConnection) urlConnection;
+        clientConnection.connect(); // GET
+        return clientConnection;
+    }
+
+    private HashMap<String, HashMap<String, String>> deserialize(URL requestURL) throws  IOException {
+        HttpURLConnection clientConnection = connect(requestURL);
+        Moshi moshi = new Moshi.Builder().build();
+        Type stringListType = Types.newParameterizedType(List.class, String.class);
+        Type listType = Types.newParameterizedType(List.class, stringListType);
+        JsonAdapter<HashMap<String, HashMap<String, String>>> adapter = moshi.adapter(listType);
+        return adapter.fromJson(
+                new Scanner(clientConnection.getInputStream()).useDelimiter("\\A").next());
     }
 }
