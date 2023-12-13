@@ -76,20 +76,26 @@ td {
     max-width: 275px;	
     width: 275px;	
     height: 400px;	
-    overflow-y: auto;	
-    white-space: normal;	
-} 	
+    white-space: normal;
+    	
+} 
+.scrollable-cell :hover{
+    position:relative;
+    overflow-y: visible;
+    background-color: rgb(56, 187, 174);
+    z-index: 20;
+}		
 
-.scrollable-cell {	
+/* .scrollable-cell {	
     max-width: 400px;	
     max-height: 400px;	
-    overflow-y: auto;	
-}	
+}	 */
 
 .description-div {	
     max-height: 400px;	
-    overflow-y: auto;	
-}	
+    overflow-y: hidden;	
+}
+
 .button-container {	
     padding: 10px 15px;	
     display: flex;	
