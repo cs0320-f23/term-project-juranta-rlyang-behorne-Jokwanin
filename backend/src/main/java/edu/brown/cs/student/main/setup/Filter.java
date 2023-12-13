@@ -21,6 +21,7 @@ public class Filter {
   public HashMap<String, ArrayList<String>> getGenreMovie()
       throws IOException, FactoryFailureException {
     // setting up the instance for the class
+    // changes
     Setup setup = new Setup();
     HashMap<String, HashMap<String, Object>> movieDataBase = setup.setup();
     String allGenresMap = movieDataBase.get("genre").get(8).toString();
