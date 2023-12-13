@@ -1,7 +1,7 @@
-import { functionMap, addToMap, removeFromMap} from '../src/components/FunctionPieces/FunctionMap'
+//import { functionMap, addToMap, removeFromMap} from '../src/components/FunctionPieces/FunctionMap'
 import { test, expect } from '@playwright/test';
 //import mockFunction from '../src/components/FunctionPieces/Functions/mockFunction';
-import view from '../src/components/FunctionPieces/Functions/view';
+//import view from '../src/components/FunctionPieces/Functions/view';
 
 test('add Functions', async () => {
 // addToMap("view2", new view());
