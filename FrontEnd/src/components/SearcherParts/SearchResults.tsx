@@ -153,11 +153,6 @@ export function SearchResults(props: SearchResultsProps){
             </tbody>
         </table>
 
-        
-        {/* <img
-            // class="fit-picture"
-            src="..\..\images\grapefruit-slice.jpg"
-            alt="Grapefruit slice atop a pile of other slices" />  */}
         </div>
     )
 
