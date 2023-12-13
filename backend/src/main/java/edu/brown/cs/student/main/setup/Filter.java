@@ -18,7 +18,7 @@ public class Filter {
   /**
    * method name: getGenreMovie -returns the list of movies in that genre
    */
-  public HashMap<String, ArrayList<String>> getGenreMovie()
+  public HashMap<String, HashMap<String, Object>> getGenreMovie()
       throws IOException, FactoryFailureException {
     // setting up the instance for the class
     // changes
@@ -26,32 +26,23 @@ public class Filter {
     HashMap<String, HashMap<String, Object>> movieDataBase = setup.setup();
     String allGenresMap = movieDataBase.get("genre").get(8).toString();
     String[] allGenresArray = allGenresMap.split(",");
-    System.out.println(allGenresArray);
     List<String> genreList = Arrays.asList(allGenresArray);
     HashMap<String, ArrayList<String>> genreToMovie = setup.setupGenre();
-    HashMap<String, ArrayList<String>> MovietoOtherMovieGenre = new HashMap<>();
+    HashMap<String, HashMap<String, Object>> movieToOtherMovieGenre = new HashMap();
     for (String genre : genreList) {
-      if (genreToMovie.containsKey(genre)) {
+      if(genreToMovie.containsKey(genre)) {
         ArrayList<String> similarMovieGenre = genreToMovie.get(genre);
-        HashSet<String> similarMovieGenreSet = new HashSet<>(similarMovieGenre);
         for (String movieName : similarMovieGenre) {
-          if (!MovietoOtherMovieGenre.containsKey(movieName)) {
-            Boolean removeCurrMovie = similarMovieGenreSet.remove(movieName);
-            MovietoOtherMovieGenre.put(movieName, new ArrayList<String>(similarMovieGenreSet));
-          } else {
-            Boolean removeCurrMovie = similarMovieGenreSet.remove(movieName);
-            Boolean listMultipleGenres = MovietoOtherMovieGenre.get(movieName)
-                .addAll(new ArrayList<String>(similarMovieGenreSet));
-            MovietoOtherMovieGenre.put(movieName, MovietoOtherMovieGenre.get(movieName));
+          HashMap<String, Object> movieData  = new HashMap<>();
+          List<String> otherMovieName = new ArrayList<>(similarMovieGenre);
+          Boolean removeOneMovie = otherMovieName.remove(movieName);
+          for(String movie: otherMovieName){
+            movieData.put(movie, movieDataBase.get(movie));
           }
+          movieToOtherMovieGenre.put(movieName, movieData);
         }
       }
     }
-    return MovietoOtherMovieGenre;
+    return movieToOtherMovieGenre;
   }
 }
-
-  // some issue that could arise could be duplicates
-
-
-
