@@ -12,14 +12,15 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class movieHandler {
+public class movieHandler implements Route{
   @Override
   public Object handle(Request request, Response response) {
-    List<List<String>> parsedData = this.parsedData.getData();
+    /*List<List<String>> parsedData = this.parsedData.getData();
     if (parsedData == null) {
       return this.serialize("error_datasource", new ArrayList<>());
     }
-    return this.serialize("success", parsedData);
+    return this.serialize("success", parsedData);*/
+    return null;
   }
 
   /**
