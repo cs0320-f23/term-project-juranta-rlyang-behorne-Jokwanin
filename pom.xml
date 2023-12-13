@@ -43,6 +43,14 @@
             <version>1.13.0</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.junit.jupiter</groupId>-->
+<!--            <artifactId>junit-jupiter-api</artifactId>-->
+<!--            <version>1.13.0</version> &lt;!&ndash; Use the latest version available &ndash;&gt;-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
+
         <!--
                Spark is a lightweight framework for creating web applications.
                Spark is most commonly used to create APIs and websites.

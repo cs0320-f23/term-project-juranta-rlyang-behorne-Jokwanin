@@ -27,6 +27,8 @@ public class Setup {
     private HashMap<String, String> nameMap;
     private HashMap<String, String[]> directors;
     private HashMap<String, String[]> writers;
+
+
     public Setup() throws IOException, FactoryFailureException {
         FileReader fileReader = new FileReader("backend/data/ImdbTitleBasics.csv");
         Search filterMovie = new Search(fileReader, "movie", "2", true, false);
