@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class TestSetup {
 
-    @Test
+    @org.junit.Test
     public void testSetup() throws IOException, FactoryFailureException {
         Setup setup = new Setup();
         HashMap<String, HashMap<String, Object>> database = setup.setup();
