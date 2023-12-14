@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 public class TestSetup {
 
-    @Test
+
+    @org.junit.Test
     public void testSetup() throws IOException, FactoryFailureException {
         Setup setup = new Setup();
         HashMap<String, HashMap<String, Object>> database = setup.setup();
@@ -22,14 +23,10 @@ public class TestSetup {
         Assert.assertTrue(genreDatabase.containsKey("drama"));
         Assert.assertTrue(peopleDatabase.containsKey("Ridley Scott"));
     }
+
     @Test
     public void testFilterGenre() throws IOException, FactoryFailureException {
-        Setup setup = new Setup();
         Filter filter = new Filter();
-        HashMap<String, HashMap<String, Object>> database = setup.setup();
-        HashMap<String, ArrayList<String>> genreDatabase = setup.setupGenre();
-        HashMap<String, ArrayList<String>> peopleDatabase = setup.setupPeopleDB();
-        HashMap<String, ArrayList<String>> goodGenreMovie = filter.getGenreMovie();
-        System.out.println(goodGenreMovie);
+        System.out.println(filter.getGenreMovie());
     }
 }
