@@ -91,7 +91,13 @@ public class Setup {
                         } else {
                             movieData.put("description", apiData.get("movie_results").get(0).get("overview"));
                         }
-                        movieDatabase.put(movie.get(2), movieData);
+                        if (!movieDatabase.containsKey(movie.get(2))) {
+                            movieDatabase.put(movie.get(2), movieData);
+                        } else {
+                            movieDatabase.put(movie.get(2) + " " + movie.get(5), movieData);
+                            System.out.println("Found duplicate");
+                        }
+
                     }
                 }
             } catch (NumberFormatException e) {
@@ -109,7 +115,11 @@ public class Setup {
                 if (!genreDatabase.containsKey(genre)) {
                     genreDatabase.put(genre, new ArrayList<>());
                 }
-                genreDatabase.get(genre).add(movie.get(2));
+                if (genreDatabase.get(genre).contains(movie.get(2))) {
+                    genreDatabase.get(genre).add(movie.get(2) + " " + movie.get(5));
+                } else {
+                    genreDatabase.get(genre).add(movie.get(2));
+                }
             }
         }
         return genreDatabase;
