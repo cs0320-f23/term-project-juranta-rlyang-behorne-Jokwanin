@@ -100,7 +100,23 @@
         <scope>test</scope>
       </dependency>
 
+        <dependency>
+            <groupId>info.debatty</groupId>
+            <artifactId>java-string-similarity</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.junit.jupiter</groupId>-->
+<!--            <artifactId>junit-jupiter-api</artifactId>-->
+<!--&lt;!&ndash;            <version>17</version> &lt;!&ndash; Use the latest version available &ndash;&gt;&ndash;&gt;-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+
     </dependencies>
+
+        <!-- Other dependencies -->
+
     <build>
         <plugins>
             <!--

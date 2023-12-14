@@ -2,7 +2,9 @@ package edu.brown.cs.student.main.datasource;
 
 import edu.brown.cs.student.main.csv.FactoryFailureException;
 import edu.brown.cs.student.main.setup.Setup;
+
 import edu.brown.cs.student.main.setup.Filter;
+
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
@@ -10,10 +12,10 @@ import org.testng.Assert;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class TestSetup {
 
-    @org.junit.Test
+
+    @Test
     public void testSetup() throws IOException, FactoryFailureException {
         Setup setup = new Setup();
         HashMap<String, HashMap<String, Object>> database = setup.setup();
