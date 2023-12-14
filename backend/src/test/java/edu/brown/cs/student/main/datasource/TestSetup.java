@@ -2,10 +2,7 @@ package edu.brown.cs.student.main.datasource;
 
 import edu.brown.cs.student.main.csv.FactoryFailureException;
 import edu.brown.cs.student.main.setup.Setup;
-<<<<<<< HEAD
 import edu.brown.cs.student.main.setup.Filter;
-=======
->>>>>>> a4bf2ebc69565edd7b83c9bdf37b2c8479308b9f
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
