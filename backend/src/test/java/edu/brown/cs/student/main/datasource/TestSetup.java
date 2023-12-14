@@ -2,9 +2,6 @@ package edu.brown.cs.student.main.datasource;
 
 import edu.brown.cs.student.main.csv.FactoryFailureException;
 import edu.brown.cs.student.main.setup.Setup;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 

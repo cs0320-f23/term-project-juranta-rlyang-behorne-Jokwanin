@@ -1,9 +1,13 @@
 package edu.brown.cs.student.main;
 
 import static spark.Spark.after;
+
+import edu.brown.cs.student.main.csv.FactoryFailureException;
 import spark.Spark;
 
 import edu.brown.cs.student.main.Handler.movieHandler;
+
+import java.io.IOException;
 
 /** A Main class that starts a server */
 public class Main {
@@ -12,7 +16,7 @@ public class Main {
    * The main method. Starts a server and instantiates 4 endpoints: loadcsv, viewcsv, searchsv, and
    * broadband
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException, FactoryFailureException {
 
     int port = 1234;
     Spark.port(port);
