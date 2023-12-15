@@ -60,7 +60,6 @@ public class TestFilter {
         Filter filter = new Filter(this.testDatabase, this.genreDatabase, this.peopleDatabase);
         HashMap<String, HashMap<String, String>> filteredList = filter.getFilteredList("blade runner");
         Assert.assertTrue(!filteredList.containsKey("hitch"));
-        System.out.println(filteredList);
         Order order = new Order();
         ArrayList<HashMap<String, String>> orderedList = order.order(filteredList, this.testDatabase.get("blade runner"));
         Assert.assertTrue(orderedList.get(1).get("title").equals("alien"));
