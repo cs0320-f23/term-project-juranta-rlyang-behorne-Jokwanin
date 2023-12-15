@@ -9,6 +9,8 @@ import edu.brown.cs.student.main.Handler.movieHandler;
 import edu.brown.cs.student.main.Handler.searchHandler;
 import java.io.IOException;
 
+import java.io.IOException;
+
 /** A Main class that starts a server */
 public class Main {
 
