@@ -19,7 +19,7 @@ export function Filters(){
                 </div>
 
                 <div className="input-container">
-                    <div>IMDB Rating:</div>
+                    <div>Audience Rating:</div>
                     <input type='number'
                     placeholder='e.g. 1.0'></input>
                     <div>  to  </div>

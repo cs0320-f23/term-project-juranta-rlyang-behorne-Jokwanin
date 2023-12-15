@@ -22,7 +22,7 @@ export function SearchResults(props: SearchResultsProps){
                 <div className='description-div'>
                     <div> 
                     <img // class="fit-picture"
-                    src="..\..\images\grapefruit-slice.jpg"
+                    src="https://image.tmdb.org/t/p/original/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg"
                     alt="Grapefruit slice atop a pile of other slices" />
                     <p></p>
                     START Verbose Filler Text 
