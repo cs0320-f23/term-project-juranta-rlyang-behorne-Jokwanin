@@ -22,8 +22,8 @@ public class Setup {
 
     private ArrayList<ArrayList<String>> movieList;
     private HashMap<String, String> nameMap;
-    private HashMap<String, String[]> directors;
-    private HashMap<String, String[]> writers;
+    private HashMap<String, String> directors;
+    private HashMap<String, String> writers;
 
 
     public Setup() throws IOException, FactoryFailureException {
@@ -45,23 +45,15 @@ public class Setup {
         ArrayList<ArrayList<String>> crew = parsedCrew.parse();
         this.directors = new HashMap<>();
         for (ArrayList<String> director: crew) {
-            String[] list = director.get(1).split(",");
-            for (int i = 0; i < list.length; i++) {
-                list[i] = this.nameMap.get(list[i]);
-            }
-            this.directors.put(director.get(0), list);
+            this.directors.put(director.get(0), director.get(1));
         }
 
         this.writers = new HashMap<>();
         for (ArrayList<String> writer: crew) {
-            String[] list = writer.get(1).split(",");
-            for (int i = 0; i < list.length; i++) {
-                list[i] = this.nameMap.get(list[i]);
-            }
-            this.writers.put(writer.get(0), list);
+            this.writers.put(writer.get(0), writer.get(2));
         }
     }
-    public HashMap<String, HashMap<String, Object>> setup() throws IOException, FactoryFailureException {
+    public HashMap<String, HashMap<String, String>> setup() throws IOException, FactoryFailureException {
         FileReader fileReader = new FileReader("data/ImdbTitleRatings.csv");
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
         CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
@@ -72,18 +64,20 @@ public class Setup {
         }
 
 
-        HashMap<String, HashMap<String, Object>> movieDatabase = new HashMap<>();
+        HashMap<String, HashMap<String, String>> movieDatabase = new HashMap<>();
         for (ArrayList<String> movie:this.movieList) {
             try {
                 if (Integer.parseInt(movie.get(5)) > 1960) {
                     if (ratingsMap.containsKey(movie.get(0)) && Integer.parseInt(ratingsMap.get(movie.get(0)).get(2)) > 10000) {
-                        HashMap<String, Object> movieData = new HashMap<>();
+                        HashMap<String, String> movieData = new HashMap<>();
                         movieData.put("id", movie.get(0));
                         movieData.put("title", movie.get(2));
                         movieData.put("year", movie.get(5));
                         movieData.put("genre", movie.get(8));
                         movieData.put("ratings", ratingsMap.get(movie.get(0)).get(1));
+
                         movieData.put("directors", this.directors.get(movie.get(0)));
+
                         movieData.put("writers", this.writers.get(movie.get(0)));
                         Map<String, ArrayList<Map<String, String>>> apiData = this.deserialize(new URL("https://api.themoviedb.org/3/find/" + movie.get(0) + "?external_source=imdb_id&api_key=883f76f29f755de0582499a099f512a8"));
                         if (apiData.get("movie_results").isEmpty()) {
@@ -128,13 +122,13 @@ public class Setup {
     public HashMap<String, ArrayList<String>> setupPeopleDB() {
         HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
         for (ArrayList<String> movie:this.movieList) {
-            for (String director: this.directors.get(movie.get(0))) {
+            for (String director: this.directors.get(movie.get(0)).split(",")) {
                 if (!peopleDatabase.containsKey(director)) {
                     peopleDatabase.put(director, new ArrayList<>());
                 }
                 peopleDatabase.get(director).add(movie.get(2));
             }
-            for (String writer: this.writers.get(movie.get(0))) {
+            for (String writer: this.writers.get(movie.get(0)).split(",")) {
                 if (!peopleDatabase.containsKey(writer)) {
                     peopleDatabase.put(writer, new ArrayList<>());
                 }

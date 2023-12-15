@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.brown.cs.student.main.csv.FactoryFailureException;
+import edu.brown.cs.student.main.ordering.Order;
+import edu.brown.cs.student.main.setup.Filter;
 import edu.brown.cs.student.main.setup.Setup;
 import spark.Request;
 import spark.Response;
@@ -19,7 +21,7 @@ import spark.Route;
 
 public class movieHandler implements Route{
 
-  private HashMap<String, HashMap<String, Object>> database;
+  private HashMap<String, HashMap<String, String>> database;
   private HashMap<String, ArrayList<String>> genreDatabase;
   private HashMap<String, ArrayList<String>> peopleDatabase;
 
@@ -33,11 +35,16 @@ public class movieHandler implements Route{
 
   @Override
   public Object handle(Request request, Response response) {
-    /*List<List<String>> parsedData = this.parsedData.getData();
-    if (parsedData == null) {
-      return this.serialize("error_datasource", new ArrayList<>());
-    }
-    return this.serialize("success", parsedData);*/
+
+    String target = request.queryParams("target");
+
+    Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+    HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
+
+    Order order = new Order();
+    ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target));
+
+
     return null;
   }
 
