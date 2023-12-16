@@ -6,6 +6,8 @@ import edu.brown.cs.student.main.csv.FactoryFailureException;
 import spark.Spark;
 
 import edu.brown.cs.student.main.Handler.movieHandler;
+import edu.brown.cs.student.main.Handler.searchHandler;
+import java.io.IOException;
 
 import java.io.IOException;
 
@@ -27,7 +29,10 @@ public class Main {
         });
 
 
+
     Spark.get("recommendation", new movieHandler());
+    Spark.get("search", new searchHandler());
+
     Spark.init();
     Spark.awaitInitialization();
 

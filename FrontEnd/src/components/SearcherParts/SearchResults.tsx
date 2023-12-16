@@ -20,10 +20,11 @@ export function SearchResults(props: SearchResultsProps){
                 <td className='scrollable-cell'>
                 
                 <div className='description-div'>
+                    <div> 
                     <img // class="fit-picture"
-                    src="..\..\images\grapefruit-slice.jpg"
+                    src="https://image.tmdb.org/t/p/original/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg"
                     alt="Grapefruit slice atop a pile of other slices" />
-                    <p className='in-box'> 
+                    <p></p>
                     START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -33,15 +34,17 @@ export function SearchResults(props: SearchResultsProps){
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</p></div>
+                    END</div></div>
                 </td>
                 <td className='scrollable-cell'>
                 
                 <div className='description-div'>
+                    
+                    <div> 
                     <img // class="fit-picture"
                     src="..\..\images\lalaland.jpg"
                     alt="Grapefruit slice atop a pile of other slices" />
-                    <p> 
+                    <p></p>
                     START Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
@@ -51,7 +54,7 @@ export function SearchResults(props: SearchResultsProps){
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
                     Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</p></div> 
+                    END</div></div> 
                 </td>
                 <td className='scrollable-cell'>
                 
