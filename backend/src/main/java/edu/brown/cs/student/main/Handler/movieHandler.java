@@ -3,23 +3,21 @@ package edu.brown.cs.student.main.Handler;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-
+import edu.brown.cs.student.main.csv.FactoryFailureException;
+import edu.brown.cs.student.main.ordering.Order;
+import edu.brown.cs.student.main.setup.Filter;
+import edu.brown.cs.student.main.setup.Setup;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import edu.brown.cs.student.main.csv.FactoryFailureException;
-import edu.brown.cs.student.main.ordering.Order;
-import edu.brown.cs.student.main.setup.Filter;
-import edu.brown.cs.student.main.setup.Setup;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class movieHandler implements Route{
+public class movieHandler implements Route {
 
   private HashMap<String, HashMap<String, String>> database;
   private HashMap<String, ArrayList<String>> genreDatabase;
@@ -31,7 +29,6 @@ public class movieHandler implements Route{
     this.genreDatabase = setup.setupGenre();
     this.peopleDatabase = setup.setupPeopleDB();
   }
-
 
   @Override
   public Object handle(Request request, Response response) {
@@ -73,5 +70,4 @@ public class movieHandler implements Route{
     responseMap.put("data", data);
     return adapter.toJson(responseMap);
   }
-
 }

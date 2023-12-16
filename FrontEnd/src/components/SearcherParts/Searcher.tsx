@@ -15,14 +15,14 @@ export default function Searcher() {
   const [history, setHistory] = useState<Obby[]>([])
   const [modeB, setModeB] = useState(true);
   const [currentFile, setCurrentFile] = useState<string[][]>([[]]);
-  const [results, setResults] = useState<string[]>([]);
+  const [search, setSearch] = useState<string>("");
 
   //const updateHistory
   return (
     <div className="Searcher">  
       <MovieInput modeB = {modeB} history={history} setHistory={setHistory} setModeB={setModeB} 
-      setCurrentFile={setCurrentFile} currentFile={currentFile}/>
-      <SearchResults results = {results}/>
+      setCurrentFile={setCurrentFile} currentFile={currentFile} setSearch={setSearch}/>
+      <SearchResults search = {search}/>
     </div>
   );
 }

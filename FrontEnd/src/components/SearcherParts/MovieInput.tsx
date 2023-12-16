@@ -15,6 +15,7 @@ interface MovieInputProps{
   setModeB: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentFile: React.Dispatch<React.SetStateAction<string[][]>>;
   currentFile: string[][];
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function MovieInput(props : MovieInputProps) {
@@ -24,13 +25,46 @@ export function MovieInput(props : MovieInputProps) {
   const [commandString, setCommandString] = useState<string>("");
   const [toggle, setToggle] = useState<string>("filters");
   const [toggled, setToggled] = useState<boolean>(false);
+
+  //Filter stuff
+  const [isCheckedDate, setIsCheckedDate] = useState<boolean>(true);
+  const [isCheckedScore, setIsCheckedScore] = useState<boolean>(true);
+  const [minMonth, setMinMonth] = useState<string>("");
+  const [maxMonth, setMaxMonth] = useState<string>("2024-12");
+
+  const [minScore, setMinScore] = useState('');
+  const [maxScore, setMaxScore] = useState('');
   /**
    * // This function is triggered when the button is clicked.
    * Parses the input, executes the command, and updates the history.
    */
-  async function handleSubmit(commandString: string) {
+  function handleSubmit(commandString: string) {
     if(commandString !== ""){
-      setCommandString("");
+      const minSplit : string[] = minMonth.split("-");
+      const maxSplit : string[] = maxMonth.split("-");
+
+      const minYear : string = minSplit[0];
+      const maxYear : string = maxSplit[0];
+      const monthmin : string = minSplit[1];
+      const monthmax : string = maxSplit[1];
+      console.log(monthmin);
+
+      let searchURL :string = `?search=` + commandString;
+      if(minYear !== '' && isCheckedDate){
+        searchURL = searchURL + `&minYear=`+ minYear +`&minMonth=`+ monthmin ;
+      }
+      if(maxYear !== '' && isCheckedDate){
+        searchURL = searchURL +  `&maxYear=`+ maxYear +`&maxMonth=`+ monthmax;
+      }
+      if(minScore !== '' && isCheckedScore){
+        searchURL = searchURL + `&minScore=`+ minScore ;
+      }
+      if(maxScore !== '' && isCheckedScore){
+        searchURL = searchURL + `&maxScore=` + maxScore;
+      }
+
+      console.log(searchURL);
+      props.setSearch(searchURL)
     }
 
   }
@@ -78,13 +112,6 @@ export function MovieInput(props : MovieInputProps) {
         />
       </fieldset>
       <div className="button-container">
-        <button className={toggle}
-          aria-label="Filters Button"
-          aria-description="Click this button to show Filters"
-          onClick={() => handleFilterClick()}
-        >
-          Filters
-        </button>
         <button
           aria-label="submit Button"
           aria-description="Click this button to enter Searches"
@@ -92,9 +119,21 @@ export function MovieInput(props : MovieInputProps) {
         >
           Search!
         </button>
+        <button className={toggle}
+          aria-label="Filters Button"
+          aria-description="Click this button to show Filters"
+          onClick={() => handleFilterClick()}
+        >
+          Filters
+        </button>
+
       </div>
       {toggled ? (
-        <Filters></Filters>
+        <Filters isCheckedDate={isCheckedDate} setIsCheckedDate={setIsCheckedDate} 
+        isCheckedScore = {isCheckedScore} setIsCheckedScore={setIsCheckedScore}
+        minMonth={minMonth} setMinMonth={setMinMonth} maxMonth={maxMonth}
+        setMaxMonth={setMaxMonth} minScore={minScore} setMinScore={setMinScore}
+        maxScore={maxScore} setMaxScore={setMaxScore}></Filters>
       ): (
         <div></div>
       )}

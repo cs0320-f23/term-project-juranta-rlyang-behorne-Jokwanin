@@ -1,10 +1,8 @@
 package edu.brown.cs.student.main.ordering;
 
 import info.debatty.java.stringsimilarity.Cosine;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class Order {
 
@@ -99,15 +97,15 @@ public class Order {
         /*int length1 = middle-start+1;
         int length2 = end-middle;
 
-        ArrayList<ArrayList<String>> left = new ArrayList<>(length1);
-        ArrayList<ArrayList<String>> right = new ArrayList<>(length2);
+    ArrayList<ArrayList<String>> left = new ArrayList<>(length1);
+    ArrayList<ArrayList<String>> right = new ArrayList<>(length2);
 
-        for (int i = 0; i < length1; i++) {
-            left.add(i, this.scoreList.get(start+i));
-        }
-        for (int i = 0; i < length2; i++) {
-            right.add(i, this.scoreList.get(middle+1+i));
-        }
+    for (int i = 0; i < length1; i++) {
+      left.add(i, this.scoreList.get(start + i));
+    }
+    for (int i = 0; i < length2; i++) {
+      right.add(i, this.scoreList.get(middle + 1 + i));
+    }
 
         int i = 0, j = 0;
         int k = start;

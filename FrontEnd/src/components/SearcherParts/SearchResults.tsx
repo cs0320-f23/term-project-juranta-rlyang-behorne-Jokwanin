@@ -1,11 +1,89 @@
+import { useEffect } from 'react';
+import { getResults } from './getResults';
+import { useState } from 'react';
 import '../../styles/main.css';
 
 
 interface SearchResultsProps{
-    results : String[];
+    search : String;
 }
 
 export function SearchResults(props: SearchResultsProps){
+    const [movieResults, setMovieResults] = useState<string[]>([]);
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(props.search !== ''){
+            setLoading(true);
+        
+            getResults(props.search).then(resultJSON => {
+                //setImageSRC(["https://image.tmdb.org/t/p/original/" + resultJSON.first.poster_path])
+                setLoading(false);
+                setMovieResults(resultJSON);
+        });
+        }
+        
+        
+    }, [props.search]);
+
+    function formatRow(movie : any){
+        return(  
+                <tr>
+                <td className='scrollable-cell'>
+                
+                <div className='description-div'>
+                    <div> 
+                    <img
+                    src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
+                    alt={movie.title} />
+                    {movie.title + "-->"}
+                    {movie.overview}
+                    <p></p>
+                    {movie.release_date}
+                    <p></p>
+                    {movie.vote_average}
+                    </div></div>
+                </td>
+                </tr>
+            )
+    }
+    if(loading){
+        return(
+            <div>
+                <br></br>
+                <br></br>
+                <br></br>
+            <div className='loader'></div>
+            </div>
+        )
+    }
+    if(movieResults.length === 0){
+        return(
+            <div>
+                <br></br>
+                <table className="center" >
+                <tbody>
+                    <div>No Results!</div>
+                </tbody>
+            </table>
+            </div>
+        )
+    } else {
+        return(
+            <div>
+                <br></br>
+                <table className="center" >
+                <tbody>
+                    {movieResults.map((eachMovie) => {
+                        return formatRow(eachMovie);
+                    })}
+                </tbody>
+            </table>
+            </div>
+        )
+    }
+    
 
 
     return(
@@ -22,7 +100,7 @@ export function SearchResults(props: SearchResultsProps){
                 <div className='description-div'>
                     <div> 
                     <img // class="fit-picture"
-                    src="https://image.tmdb.org/t/p/original/prSfAi1xGrhLQNxVSUFh61xQ4Qy.jpg"
+                    src=""
                     alt="Grapefruit slice atop a pile of other slices" />
                     <p></p>
                     START Verbose Filler Text 
@@ -42,7 +120,7 @@ export function SearchResults(props: SearchResultsProps){
                     
                     <div> 
                     <img // class="fit-picture"
-                    src="..\..\images\lalaland.jpg"
+                    src=""
                     alt="Grapefruit slice atop a pile of other slices" />
                     <p></p>
                     START Verbose Filler Text 
@@ -61,7 +139,7 @@ export function SearchResults(props: SearchResultsProps){
                 <div className='description-div'>
                     <img
                         // class="fit-picture"
-                    src="..\..\images\grapefruit-slice.jpg"
+                    src=""
                     alt="Grapefruit slice atop a pile of other slices" />
                     <p> 
                      Filler Text</p></div> 

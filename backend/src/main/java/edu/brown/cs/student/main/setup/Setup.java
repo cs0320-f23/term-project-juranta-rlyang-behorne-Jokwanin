@@ -8,8 +8,6 @@ import edu.brown.cs.student.main.csv.creators.CreateArrayList;
 import edu.brown.cs.student.main.csv.creators.CreatorFromRow;
 import edu.brown.cs.student.main.csv.parser.CsvParser;
 import edu.brown.cs.student.main.csv.searcher.Search;
-
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -20,11 +18,10 @@ import java.util.*;
 
 public class Setup {
 
-    private ArrayList<ArrayList<String>> movieList;
-    private HashMap<String, String> nameMap;
-    private HashMap<String, String> directors;
-    private HashMap<String, String> writers;
-
+  private ArrayList<ArrayList<String>> movieList;
+  private HashMap<String, String> nameMap;
+  private HashMap<String, String> directors;
+  private HashMap<String, String> writers;
 
     public Setup() throws IOException, FactoryFailureException {
         FileReader fileReader = new FileReader("backend/data/ImdbTitleBasics.csv");
@@ -64,60 +61,65 @@ public class Setup {
         }
 
 
-        HashMap<String, HashMap<String, String>> movieDatabase = new HashMap<>();
-        for (ArrayList<String> movie:this.movieList) {
-            try {
-                if (Integer.parseInt(movie.get(5)) > 1960) {
-                    if (ratingsMap.containsKey(movie.get(0)) && Integer.parseInt(ratingsMap.get(movie.get(0)).get(2)) > 10000) {
-                        HashMap<String, String> movieData = new HashMap<>();
-                        movieData.put("id", movie.get(0));
-                        movieData.put("title", movie.get(2));
-                        movieData.put("year", movie.get(5));
-                        movieData.put("genre", movie.get(8));
-                        movieData.put("ratings", ratingsMap.get(movie.get(0)).get(1));
+    HashMap<String, HashMap<String, String>> movieDatabase = new HashMap<>();
+    for (ArrayList<String> movie : this.movieList) {
+      try {
+        if (Integer.parseInt(movie.get(5)) > 1960) {
+          if (ratingsMap.containsKey(movie.get(0))
+              && Integer.parseInt(ratingsMap.get(movie.get(0)).get(2)) > 10000) {
+            HashMap<String, String> movieData = new HashMap<>();
+            movieData.put("id", movie.get(0));
+            movieData.put("title", movie.get(2));
+            movieData.put("year", movie.get(5));
+            movieData.put("genre", movie.get(8));
+            movieData.put("ratings", ratingsMap.get(movie.get(0)).get(1));
 
-                        movieData.put("directors", this.directors.get(movie.get(0)));
+            movieData.put("directors", this.directors.get(movie.get(0)));
 
-                        movieData.put("writers", this.writers.get(movie.get(0)));
-                        Map<String, ArrayList<Map<String, String>>> apiData = this.deserialize(new URL("https://api.themoviedb.org/3/find/" + movie.get(0) + "?external_source=imdb_id&api_key=883f76f29f755de0582499a099f512a8"));
-                        if (apiData.get("movie_results").isEmpty()) {
-                            movieData.put("description", null);
-                        } else {
-                            movieData.put("description", apiData.get("movie_results").get(0).get("overview"));
-                        }
-                        if (!movieDatabase.containsKey(movie.get(2))) {
-                            movieDatabase.put(movie.get(2), movieData);
-                        } else {
-                            movieDatabase.put(movie.get(2) + " " + movie.get(5), movieData);
-                            System.out.println("Found duplicate");
-                        }
-
-                    }
-                }
-            } catch (NumberFormatException e) {
-
+            movieData.put("writers", this.writers.get(movie.get(0)));
+            Map<String, ArrayList<Map<String, String>>> apiData =
+                this.deserialize(
+                    new URL(
+                        "https://api.themoviedb.org/3/find/"
+                            + movie.get(0)
+                            + "?external_source=imdb_id&api_key=883f76f29f755de0582499a099f512a8"));
+            if (apiData.get("movie_results").isEmpty()) {
+              movieData.put("description", null);
+            } else {
+              movieData.put("description", apiData.get("movie_results").get(0).get("overview"));
             }
-        }
-        return movieDatabase;
-    }
-
-    public HashMap<String, ArrayList<String>> setupGenre() {
-        HashMap<String, ArrayList<String>> genreDatabase = new HashMap<>();
-        for (ArrayList<String> movie:this.movieList) {
-            String[] genres = movie.get(8).split(",");
-            for (String genre: genres) {
-                if (!genreDatabase.containsKey(genre)) {
-                    genreDatabase.put(genre, new ArrayList<>());
-                }
-                if (genreDatabase.get(genre).contains(movie.get(2))) {
-                    genreDatabase.get(genre).add(movie.get(2) + " " + movie.get(5));
-                } else {
-                    genreDatabase.get(genre).add(movie.get(2));
-                }
+            if (!movieDatabase.containsKey(movie.get(2))) {
+              movieDatabase.put(movie.get(2), movieData);
+            } else {
+              movieDatabase.put(movie.get(2) + " " + movie.get(5), movieData);
+              System.out.println("Found duplicate");
             }
+          }
         }
-        return genreDatabase;
+      } catch (NumberFormatException e) {
+
+      }
     }
+    return movieDatabase;
+  }
+
+  public HashMap<String, ArrayList<String>> setupGenre() {
+    HashMap<String, ArrayList<String>> genreDatabase = new HashMap<>();
+    for (ArrayList<String> movie : this.movieList) {
+      String[] genres = movie.get(8).split(",");
+      for (String genre : genres) {
+        if (!genreDatabase.containsKey(genre)) {
+          genreDatabase.put(genre, new ArrayList<>());
+        }
+        if (genreDatabase.get(genre).contains(movie.get(2))) {
+          genreDatabase.get(genre).add(movie.get(2) + " " + movie.get(5));
+        } else {
+          genreDatabase.get(genre).add(movie.get(2));
+        }
+      }
+    }
+    return genreDatabase;
+  }
 
     public HashMap<String, ArrayList<String>> setupPeopleDB() {
         HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
@@ -140,26 +142,25 @@ public class Setup {
             }
         }
 
-        return peopleDatabase;
-    }
+    return peopleDatabase;
+  }
 
+  private static HttpURLConnection connect(URL requestURL) throws IOException {
+    URLConnection urlConnection = requestURL.openConnection();
+    HttpURLConnection clientConnection = (HttpURLConnection) urlConnection;
+    clientConnection.connect(); // GET
+    return clientConnection;
+  }
 
-    private static HttpURLConnection connect(URL requestURL) throws IOException {
-        URLConnection urlConnection = requestURL.openConnection();
-        HttpURLConnection clientConnection = (HttpURLConnection) urlConnection;
-        clientConnection.connect(); // GET
-        return clientConnection;
-    }
-
-    private Map<String, ArrayList<Map<String, String>>> deserialize(URL requestURL) throws  IOException {
-        HttpURLConnection clientConnection = connect(requestURL);
-        Moshi moshi = new Moshi.Builder().build();
-        Type stringMapType = Types.newParameterizedType(Map.class, String.class, Object.class);
-        Type movieList = Types.newParameterizedType(List.class, stringMapType);
-        Type listType = Types.newParameterizedType(Map.class, String.class, movieList);
-        JsonAdapter<Map<String, ArrayList<Map<String, String>>>> adapter = moshi.adapter(listType);
-        return adapter.fromJson(
-                new Scanner(clientConnection.getInputStream()).useDelimiter("\\A").next());
-    }
-
+  private Map<String, ArrayList<Map<String, String>>> deserialize(URL requestURL)
+      throws IOException {
+    HttpURLConnection clientConnection = connect(requestURL);
+    Moshi moshi = new Moshi.Builder().build();
+    Type stringMapType = Types.newParameterizedType(Map.class, String.class, Object.class);
+    Type movieList = Types.newParameterizedType(List.class, stringMapType);
+    Type listType = Types.newParameterizedType(Map.class, String.class, movieList);
+    JsonAdapter<Map<String, ArrayList<Map<String, String>>>> adapter = moshi.adapter(listType);
+    return adapter.fromJson(
+        new Scanner(clientConnection.getInputStream()).useDelimiter("\\A").next());
+  }
 }

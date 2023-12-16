@@ -4,19 +4,18 @@ import edu.brown.cs.student.main.csv.FactoryFailureException;
 import edu.brown.cs.student.main.ordering.Order;
 import edu.brown.cs.student.main.setup.Filter;
 import edu.brown.cs.student.main.setup.Setup;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class TestFilter {
 
-    private HashMap<String, ArrayList<String>> genreDatabase;
-    private HashMap<String, ArrayList<String>> peopleDatabase;
-    private HashMap<String, HashMap<String, String>> testDatabase;
+  private HashMap<String, ArrayList<String>> genreDatabase;
+  private HashMap<String, ArrayList<String>> peopleDatabase;
+  private HashMap<String, HashMap<String, String>> testDatabase;
 
     @Before
     public void setup() throws IOException, FactoryFailureException {
