@@ -103,4 +103,9 @@ public class TestSearch {
           this.searcher.connect(requestURL);
         });
   }
+
+  @org.junit.Test
+  public void testFilters() {
+
+  }
 }

@@ -10,7 +10,13 @@ interface filtersProps{
     setMinMonth :React.Dispatch<React.SetStateAction<string>>;
     maxMonth : string;
     setMaxMonth : React.Dispatch<React.SetStateAction<string>>;
+
+    minScore :string;
+    setMinScore : Dispatch<SetStateAction<string>>;
+    maxScore :string;
+    setMaxScore : Dispatch<SetStateAction<string>>;
 }
+
 
 export function Filters(props : filtersProps){
 
@@ -28,6 +34,8 @@ export function Filters(props : filtersProps){
         console.log(event.type)
         props.setMaxMonth(event.target.value);
     };
+
+    
     return(
         <div>
             <p></p>
@@ -48,10 +56,14 @@ export function Filters(props : filtersProps){
                 <div className="input-container">
                     <div>Audience Rating:</div>
                     <input type='number'
-                    placeholder='e.g. 1.0'></input>
+                    placeholder='e.g. 1.0'
+                    value = {props.minScore} 
+                    onChange={(e) => props.setMinScore(e.target.value)}></input>
                     <div>  to  </div>
                     <input type='number'
-                    placeholder='e.g. 10.0'></input>
+                    placeholder='e.g. 10.0'
+                    value = {props.maxScore} 
+                    onChange={(e) => props.setMaxScore(e.target.value)}></input>
                     <div className='apply-filter'> Apply Filter: </div>
                     <input type='checkbox' 
                     checked={props.isCheckedScore}

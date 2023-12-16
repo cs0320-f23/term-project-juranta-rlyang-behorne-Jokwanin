@@ -11,11 +11,19 @@ interface SearchResultsProps{
 export function SearchResults(props: SearchResultsProps){
     const [movieResults, setMovieResults] = useState<string[]>([]);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     useEffect(() => {
-        getResults(props.search).then(resultJSON => {
-            //setImageSRC(["https://image.tmdb.org/t/p/original/" + resultJSON.first.poster_path])
-            setMovieResults(resultJSON);
+        if(props.search !== ''){
+            setLoading(true);
+        
+            getResults(props.search).then(resultJSON => {
+                //setImageSRC(["https://image.tmdb.org/t/p/original/" + resultJSON.first.poster_path])
+                setLoading(false);
+                setMovieResults(resultJSON);
         });
+        }
+        
         
     }, [props.search]);
 
@@ -39,6 +47,16 @@ export function SearchResults(props: SearchResultsProps){
                 </td>
                 </tr>
             )
+    }
+    if(loading){
+        return(
+            <div>
+                <br></br>
+                <br></br>
+                <br></br>
+            <div className='loader'></div>
+            </div>
+        )
     }
     if(movieResults.length === 0){
         return(

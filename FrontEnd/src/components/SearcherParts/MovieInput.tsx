@@ -29,13 +29,16 @@ export function MovieInput(props : MovieInputProps) {
   //Filter stuff
   const [isCheckedDate, setIsCheckedDate] = useState<boolean>(true);
   const [isCheckedScore, setIsCheckedScore] = useState<boolean>(true);
-  const [minMonth, setMinMonth] = useState<string>("1888-01");
+  const [minMonth, setMinMonth] = useState<string>("");
   const [maxMonth, setMaxMonth] = useState<string>("2024-12");
+
+  const [minScore, setMinScore] = useState('');
+  const [maxScore, setMaxScore] = useState('');
   /**
    * // This function is triggered when the button is clicked.
    * Parses the input, executes the command, and updates the history.
    */
-  async function handleSubmit(commandString: string) {
+  function handleSubmit(commandString: string) {
     if(commandString !== ""){
       const minSplit : string[] = minMonth.split("-");
       const maxSplit : string[] = maxMonth.split("-");
@@ -45,11 +48,23 @@ export function MovieInput(props : MovieInputProps) {
       const monthmin : string = minSplit[1];
       const monthmax : string = maxSplit[1];
       console.log(monthmin);
-      const searchURL : string = `?search=` + commandString +`&minYear=`+ minYear 
-      +`&maxYear=`+ maxYear +`&minMonth=`+ monthmin +`&maxMonth=`+ monthmax +`&minScore=1&maxScore=9`;
+
+      let searchURL :string = `?search=` + commandString;
+      if(minYear !== '' && isCheckedDate){
+        searchURL = searchURL + `&minYear=`+ minYear +`&minMonth=`+ monthmin ;
+      }
+      if(maxYear !== '' && isCheckedDate){
+        searchURL = searchURL +  `&maxYear=`+ maxYear +`&maxMonth=`+ monthmax;
+      }
+      if(minScore !== '' && isCheckedScore){
+        searchURL = searchURL + `&minScore=`+ minScore ;
+      }
+      if(maxScore !== '' && isCheckedScore){
+        searchURL = searchURL + `&maxScore=` + maxScore;
+      }
+
       console.log(searchURL);
-      await props.setSearch(searchURL)
-      setCommandString("");
+      props.setSearch(searchURL)
     }
 
   }
@@ -97,13 +112,6 @@ export function MovieInput(props : MovieInputProps) {
         />
       </fieldset>
       <div className="button-container">
-        <button className={toggle}
-          aria-label="Filters Button"
-          aria-description="Click this button to show Filters"
-          onClick={() => handleFilterClick()}
-        >
-          Filters
-        </button>
         <button
           aria-label="submit Button"
           aria-description="Click this button to enter Searches"
@@ -111,12 +119,21 @@ export function MovieInput(props : MovieInputProps) {
         >
           Search!
         </button>
+        <button className={toggle}
+          aria-label="Filters Button"
+          aria-description="Click this button to show Filters"
+          onClick={() => handleFilterClick()}
+        >
+          Filters
+        </button>
+
       </div>
       {toggled ? (
         <Filters isCheckedDate={isCheckedDate} setIsCheckedDate={setIsCheckedDate} 
-        isCheckedScore = {isCheckedScore} setIsCheckedScore={setIsCheckedDate}
+        isCheckedScore = {isCheckedScore} setIsCheckedScore={setIsCheckedScore}
         minMonth={minMonth} setMinMonth={setMinMonth} maxMonth={maxMonth}
-        setMaxMonth={setMaxMonth}></Filters>
+        setMaxMonth={setMaxMonth} minScore={minScore} setMinScore={setMinScore}
+        maxScore={maxScore} setMaxScore={setMaxScore}></Filters>
       ): (
         <div></div>
       )}
