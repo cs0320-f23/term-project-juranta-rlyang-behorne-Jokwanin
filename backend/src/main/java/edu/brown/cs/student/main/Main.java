@@ -2,14 +2,11 @@ package edu.brown.cs.student.main;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.csv.FactoryFailureException;
-import spark.Spark;
-
 import edu.brown.cs.student.main.Handler.movieHandler;
 import edu.brown.cs.student.main.Handler.searchHandler;
+import edu.brown.cs.student.main.csv.FactoryFailureException;
 import java.io.IOException;
-
-import java.io.IOException;
+import spark.Spark;
 
 /** A Main class that starts a server */
 public class Main {
@@ -29,7 +26,7 @@ public class Main {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get("movieHandler", new movieHandler());
+    //Spark.get("movieHandler", new movieHandler());
     Spark.get("search", new searchHandler());
     Spark.init();
     Spark.awaitInitialization();

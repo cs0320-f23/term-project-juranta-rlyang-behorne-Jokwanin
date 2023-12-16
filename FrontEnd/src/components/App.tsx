@@ -6,8 +6,6 @@ import Searcher from './SearcherParts/Searcher';
  */
 function App() {
   return (
-    <div>
-      <h1>Hello World</h1>
     <div className="App">
       
       <div className="Movie Mapper"
@@ -16,8 +14,6 @@ function App() {
         <h1 className="App-header"> Movie Mapper</h1>
       </div>
       <Searcher />      
-    </div>
-
     </div>
   );
 }

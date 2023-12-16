@@ -26,7 +26,8 @@ public class Search {
    * @param identifier - a column number/word in the form of a string
    * @param hasHeader - a boolean of whether the file has a header
    */
-  public Search(Reader reader, String target, String identifier, boolean hasHeader, boolean searchOne) {
+  public Search(
+      Reader reader, String target, String identifier, boolean hasHeader, boolean searchOne) {
     this.reader = reader;
     this.target = target;
     this.identifier = identifier;

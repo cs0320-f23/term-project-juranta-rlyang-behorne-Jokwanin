@@ -15,6 +15,7 @@ interface MovieInputProps{
   setModeB: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentFile: React.Dispatch<React.SetStateAction<string[][]>>;
   currentFile: string[][];
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function MovieInput(props : MovieInputProps) {
@@ -24,12 +25,30 @@ export function MovieInput(props : MovieInputProps) {
   const [commandString, setCommandString] = useState<string>("");
   const [toggle, setToggle] = useState<string>("filters");
   const [toggled, setToggled] = useState<boolean>(false);
+
+  //Filter stuff
+  const [isCheckedDate, setIsCheckedDate] = useState<boolean>(true);
+  const [isCheckedScore, setIsCheckedScore] = useState<boolean>(true);
+  const [minMonth, setMinMonth] = useState<string>("1888-01");
+  const [maxMonth, setMaxMonth] = useState<string>("2024-12");
   /**
    * // This function is triggered when the button is clicked.
    * Parses the input, executes the command, and updates the history.
    */
   async function handleSubmit(commandString: string) {
     if(commandString !== ""){
+      const minSplit : string[] = minMonth.split("-");
+      const maxSplit : string[] = maxMonth.split("-");
+
+      const minYear : string = minSplit[0];
+      const maxYear : string = maxSplit[0];
+      const monthmin : string = minSplit[1];
+      const monthmax : string = maxSplit[1];
+      console.log(monthmin);
+      const searchURL : string = `?search=` + commandString +`&minYear=`+ minYear 
+      +`&maxYear=`+ maxYear +`&minMonth=`+ monthmin +`&maxMonth=`+ monthmax +`&minScore=1&maxScore=9`;
+      console.log(searchURL);
+      await props.setSearch(searchURL)
       setCommandString("");
     }
 
@@ -94,7 +113,10 @@ export function MovieInput(props : MovieInputProps) {
         </button>
       </div>
       {toggled ? (
-        <Filters></Filters>
+        <Filters isCheckedDate={isCheckedDate} setIsCheckedDate={setIsCheckedDate} 
+        isCheckedScore = {isCheckedScore} setIsCheckedScore={setIsCheckedDate}
+        minMonth={minMonth} setMinMonth={setMinMonth} maxMonth={maxMonth}
+        setMaxMonth={setMaxMonth}></Filters>
       ): (
         <div></div>
       )}
