@@ -1,6 +1,7 @@
 import '../../styles/main.css';
 import { Dispatch, HtmlHTMLAttributes, SetStateAction, useState} from 'react';
 import { ControlledInput } from '../Helper/HelperObjects/ControlledInput';
+import {Filters} from './Filters'
 
 /**
  * Represents the input field for the Read-Eval-Print Loop (REPL) interface.
@@ -22,6 +23,7 @@ export function MovieInput(props : MovieInputProps) {
   // Manages the contents of the input box
   const [commandString, setCommandString] = useState<string>("");
   const [toggle, setToggle] = useState<string>("filters");
+  const [toggled, setToggled] = useState<boolean>(false);
   /**
    * // This function is triggered when the button is clicked.
    * Parses the input, executes the command, and updates the history.
@@ -35,8 +37,10 @@ export function MovieInput(props : MovieInputProps) {
   function handleFilterClick(){
     if(toggle === "filters"){
       setToggle("toggled");
+      setToggled(true);
     } else {
       setToggle("filters");
+      setToggled(false);
     }
   }
 
@@ -89,7 +93,11 @@ export function MovieInput(props : MovieInputProps) {
           Search!
         </button>
       </div>
-
+      {toggled ? (
+        <Filters></Filters>
+      ): (
+        <div></div>
+      )}
     </div>
   );
 }
