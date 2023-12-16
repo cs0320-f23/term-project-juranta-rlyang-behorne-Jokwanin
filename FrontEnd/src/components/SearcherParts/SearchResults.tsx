@@ -8,6 +8,11 @@ interface SearchResultsProps{
     search : String;
 }
 
+function handleSubmit() {
+    
+
+  }
+
 export function SearchResults(props: SearchResultsProps){
     const [movieResults, setMovieResults] = useState<string[]>([]);
 
@@ -31,18 +36,30 @@ export function SearchResults(props: SearchResultsProps){
         return(  
                 <tr>
                 <td className='scrollable-cell'>
-                
                 <div className='description-div'>
+                <div className="similar-movie-container">
                     <div> 
                     <img
                     src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
                     alt={movie.title} />
-                    {movie.title + "-->"}
-                    {movie.overview}
+                    <div className="similar-movie-button">
+                        <button
+                        aria-label= "Find Similar Movies"
+                        aria-description= {"Click this button to find similar movies to " + movie.title}
+                        // onClick={() => handleSubmit()}
+                        >
+                            Find Similar Movies!
+                        </button>
+                    </div>
+                    </div>
+
+
+                   <h2 className='movie-title'> {movie.title}</h2>
+                    <p className='movie-output'>{movie.overview}</p>
                     <p></p>
-                    {movie.release_date}
+                   <h4 className='movie-output'> {"Release Date: " + movie.release_date}</h4>
                     <p></p>
-                    {movie.vote_average}
+                    <h4 className='movie-output'>{"Movie Score: " + movie.vote_average} </h4>
                     </div></div>
                 </td>
                 </tr>
