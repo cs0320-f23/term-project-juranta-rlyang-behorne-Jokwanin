@@ -23,44 +23,43 @@ public class Setup {
   private HashMap<String, String> directors;
   private HashMap<String, String> writers;
 
-  public Setup() throws IOException, FactoryFailureException {
-    FileReader fileReader = new FileReader("data/ImdbTitleBasics.csv");
-    Search filterMovie = new Search(fileReader, "movie", "2", true, false);
-    this.movieList = filterMovie.beginSearch();
+    public Setup() throws IOException, FactoryFailureException {
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleBasics.csv");
+        Search filterMovie = new Search(fileReader, "movie", "2", true, false);
+        this.movieList = filterMovie.beginSearch();
 
-    CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
-    fileReader = new FileReader("data/ImdbName.csv");
-    CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
-    ArrayList<ArrayList<String>> people = parsedName.parse();
-    this.nameMap = new HashMap<>();
-    for (ArrayList<String> person : people) {
-      this.nameMap.put(person.get(0), person.get(1));
-    }
+        CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
+        fileReader = new FileReader("backend/data/ImdbName.csv");
+        CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
+        ArrayList<ArrayList<String>> people = parsedName.parse();
+        this.nameMap = new HashMap<>();
+        for (ArrayList<String> person: people) {
+            this.nameMap.put(person.get(0), person.get(1));
+        }
 
-    fileReader = new FileReader("data/ImdbTitleCrew.csv");
-    CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
-    ArrayList<ArrayList<String>> crew = parsedCrew.parse();
-    this.directors = new HashMap<>();
-    for (ArrayList<String> director : crew) {
-      this.directors.put(director.get(0), director.get(1));
-    }
+        fileReader = new FileReader("backend/data/ImdbTitleCrew.csv");
+        CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
+        ArrayList<ArrayList<String>> crew = parsedCrew.parse();
+        this.directors = new HashMap<>();
+        for (ArrayList<String> director: crew) {
+            this.directors.put(director.get(0), director.get(1));
+        }
 
-    this.writers = new HashMap<>();
-    for (ArrayList<String> writer : crew) {
-      this.writers.put(writer.get(0), writer.get(2));
+        this.writers = new HashMap<>();
+        for (ArrayList<String> writer: crew) {
+            this.writers.put(writer.get(0), writer.get(2));
+        }
     }
-  }
+    public HashMap<String, HashMap<String, String>> setup() throws IOException, FactoryFailureException {
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleRatings.csv");
+        CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
+        CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
+        ArrayList<ArrayList<String>> ratings = parsedRatings.parse();
+        HashMap<String, ArrayList<String>> ratingsMap = new HashMap<>();
+        for (ArrayList<String> rating: ratings) {
+            ratingsMap.put(rating.get(0), rating);
+        }
 
-  public HashMap<String, HashMap<String, String>> setup()
-      throws IOException, FactoryFailureException {
-    FileReader fileReader = new FileReader("data/ImdbTitleRatings.csv");
-    CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
-    CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
-    ArrayList<ArrayList<String>> ratings = parsedRatings.parse();
-    HashMap<String, ArrayList<String>> ratingsMap = new HashMap<>();
-    for (ArrayList<String> rating : ratings) {
-      ratingsMap.put(rating.get(0), rating);
-    }
 
     HashMap<String, HashMap<String, String>> movieDatabase = new HashMap<>();
     for (ArrayList<String> movie : this.movieList) {
@@ -122,22 +121,26 @@ public class Setup {
     return genreDatabase;
   }
 
-  public HashMap<String, ArrayList<String>> setupPeopleDB() {
-    HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
-    for (ArrayList<String> movie : this.movieList) {
-      for (String director : this.directors.get(movie.get(0)).split(",")) {
-        if (!peopleDatabase.containsKey(director)) {
-          peopleDatabase.put(director, new ArrayList<>());
+    public HashMap<String, ArrayList<String>> setupPeopleDB() {
+        HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
+        for (ArrayList<String> movie:this.movieList) {
+            for (String director: this.directors.get(movie.get(0)).split(",")) {
+                if (!peopleDatabase.containsKey(director)) {
+                    peopleDatabase.put(director, new ArrayList<>());
+                }
+                if (!peopleDatabase.get(director).contains(movie.get(2))) {
+                    peopleDatabase.get(director).add(movie.get(2));
+                }
+            }
+            for (String writer: this.writers.get(movie.get(0)).split(",")) {
+                if (!peopleDatabase.containsKey(writer)) {
+                    peopleDatabase.put(writer, new ArrayList<>());
+                }
+                if (!peopleDatabase.get(writer).contains(movie.get(2))) {
+                    peopleDatabase.get(writer).add(movie.get(2));
+                }
+            }
         }
-        peopleDatabase.get(director).add(movie.get(2));
-      }
-      for (String writer : this.writers.get(movie.get(0)).split(",")) {
-        if (!peopleDatabase.containsKey(writer)) {
-          peopleDatabase.put(writer, new ArrayList<>());
-        }
-        peopleDatabase.get(writer).add(movie.get(2));
-      }
-    }
 
     return peopleDatabase;
   }
