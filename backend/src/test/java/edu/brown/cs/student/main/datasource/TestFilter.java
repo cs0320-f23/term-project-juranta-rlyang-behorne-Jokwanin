@@ -24,13 +24,6 @@ public class TestFilter {
         this.genreDatabase = setup.setupGenre();
         this.peopleDatabase = setup.setupPeopleDB();
         this.testDatabase = new HashMap<>();
-        HashMap<String, String> bladeRunner = new HashMap<>();
-        bladeRunner.put("title", "blade runner");
-        bladeRunner.put("genre", "action,sci-fi,thriller");
-        bladeRunner.put("directors", "nm0000631");
-        bladeRunner.put("writers", "nm0266684,nm0672459,nm0001140");
-        bladeRunner.put("year", "1982");
-        testDatabase.put("blade runner", bladeRunner);
         HashMap<String, String> alien = new HashMap<>();
         alien.put("title", "alien");
         alien.put("genre", "horror,sci-fi");
@@ -52,7 +45,20 @@ public class TestFilter {
         hitch.put("writers", "nm1358355");
         hitch.put("year", "2005");
         testDatabase.put("hitch", hitch);
-
+        HashMap<String, String> thelma = new HashMap<>();
+        thelma.put("title", "thelma & louise");
+        thelma.put("genre", "adventure,crime,drama");
+        thelma.put("directors", "nm0000631");
+        thelma.put("writers", "nm0451884");
+        thelma.put("year", "1991");
+        testDatabase.put("thelma & louise", thelma);
+        HashMap<String, String> bladeRunner = new HashMap<>();
+        bladeRunner.put("title", "blade runner");
+        bladeRunner.put("genre", "action,sci-fi,thriller");
+        bladeRunner.put("directors", "nm0000631");
+        bladeRunner.put("writers", "nm0266684,nm0672459,nm0001140");
+        bladeRunner.put("year", "1982");
+        testDatabase.put("blade runner", bladeRunner);
     }
 
     @Test
@@ -63,7 +69,7 @@ public class TestFilter {
         System.out.println(filteredList);
         Order order = new Order();
         ArrayList<HashMap<String, String>> orderedList = order.order(filteredList, this.testDatabase.get("blade runner"));
-        Assert.assertTrue(orderedList.get(1).get("title").equals("alien"));
+        Assert.assertTrue(orderedList.get(2).get("title").equals("alien"));
         System.out.println(orderedList);
     }
 }

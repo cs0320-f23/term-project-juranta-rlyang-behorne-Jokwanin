@@ -1,9 +1,11 @@
 package edu.brown.cs.student.main.datasource;
 
 import edu.brown.cs.student.main.csv.FactoryFailureException;
+import edu.brown.cs.student.main.ordering.Order;
 import edu.brown.cs.student.main.setup.Filter;
 import edu.brown.cs.student.main.setup.Setup;
 import org.junit.Before;
+import org.junit.Test;
 import org.testng.Assert;
 
 
@@ -39,5 +41,14 @@ public class TestSetup {
         Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
         HashMap<String, HashMap<String, String>> filteredList = filter.getFilteredList("blade runner");
         System.out.println(filteredList);
+    }
+
+    @Test
+    public void testOrder() {
+        Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+        HashMap<String, HashMap<String, String>> filteredList = filter.getFilteredList("blade runner");
+        Order order = new Order();
+        ArrayList<HashMap<String, String>> orderedList = order.order(filteredList, this.database.get("blade runner"));
+        System.out.println(orderedList);
     }
 }

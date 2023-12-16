@@ -37,7 +37,7 @@ public class Filter {
     // changes
 
     HashMap<String, String> targetMovie =  this.database.get(target);
-    String movieGenresMap = targetMovie.get("genre").toString();
+    String movieGenresMap = targetMovie.get("genre");
     String[] movieGenresArray = movieGenresMap.split(",");
     List<String> genreList = Arrays.asList(movieGenresArray);
     for (String genre : genreList) {

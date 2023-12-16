@@ -18,9 +18,9 @@ public class Order {
             movieScore.add(this.compare(comparison, target).toString());
             this.scoreList.add(movieScore);
         }
-        this.sort(0, database.size());
+        ArrayList<ArrayList<String>> orderedList = this.sort(this.scoreList);
         ArrayList<HashMap<String, String>> orderedMovie = new ArrayList<>();
-        for (ArrayList<String> movie: this.scoreList) {
+        for (ArrayList<String> movie: orderedList) {
             orderedMovie.add(database.get(movie.get(0)));
         }
         return orderedMovie;
@@ -62,22 +62,41 @@ public class Order {
             score += 0.1/difference;
         }
         Cosine cosine = new Cosine();
-        //score = cosine.similarity(comparison.get("overview").toString(), target.get("overview").toString());
+        if (comparison.get("overview") != null && target.get("overview") != null) {
+            score = cosine.similarity(comparison.get("overview"), target.get("overview"));
+        }
         return score;
     }
 
-    private void sort(int start, int end) {
-        if (start < end) {
-            int middle = (start + end-1)/2;
+    private ArrayList<ArrayList<String>> sort(ArrayList<ArrayList<String>> list) {
+        /*if (start < end) {
+            int middle = start + (end-1)/2;
             sort(start, middle);
             sort(middle+1, end);
 
             this.merge(start, middle, end);
+        }*/
+        if (list.size() <= 1) {
+            return list;
         }
+
+        ArrayList<ArrayList<String>> left, right;
+        left = new ArrayList<>();
+        right = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (i % 2 != 0) left.add(list.get(i));
+            else right.add(list.get(i));
+        }
+
+        left = sort(left);
+        right = sort(right);
+
+        return merge(left, right);
     }
 
-    private void merge(int start, int middle, int end) {
-        int length1 = middle-start+1;
+    private ArrayList<ArrayList<String>> merge(ArrayList<ArrayList<String>> left, ArrayList<ArrayList<String>> right) {
+        /*int length1 = middle-start+1;
         int length2 = end-middle;
 
         ArrayList<ArrayList<String>> left = new ArrayList<>(length1);
@@ -103,6 +122,29 @@ public class Order {
                 j++;
             }
             k++;
+        }*/
+        ArrayList<ArrayList<String>> ret = new ArrayList<>();
+
+        while(!left.isEmpty() && !right.isEmpty()) {
+            if (Double.parseDouble(left.get(0).get(1)) <= Double.parseDouble(right.get(0).get(1))) {
+                ret.add(left.get(0));
+                left.remove(0);
+            } else {
+                ret.add(right.get(0));
+                right.remove(0);
+            }
         }
+
+        while (!left.isEmpty()) {
+            ret.add(left.get(0));
+            left.remove(0);
+        }
+
+        while (!right.isEmpty()) {
+            ret.add(right.get(0));
+            right.remove(0);
+        }
+
+        return ret;
     }
 }

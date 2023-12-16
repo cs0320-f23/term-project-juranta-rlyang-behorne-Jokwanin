@@ -13,8 +13,7 @@ import java.io.IOException;
 public class Main {
 
   /**
-   * The main method. Starts a server and instantiates 4 endpoints: loadcsv, viewcsv, searchsv, and
-   * broadband
+   *
    */
   public static void main(String[] args) throws IOException, FactoryFailureException {
 
@@ -27,7 +26,8 @@ public class Main {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    Spark.get("movieHandler", new movieHandler());
+
+    Spark.get("recommendation", new movieHandler());
     Spark.init();
     Spark.awaitInitialization();
 
