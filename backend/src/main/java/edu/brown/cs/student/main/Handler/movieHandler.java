@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -32,8 +33,16 @@ public class movieHandler implements Route {
 
   @Override
   public Object handle(Request request, Response response) {
+    // making all characters in the string lowercase
+    String target = request.queryParams("target").toLowerCase();
 
-    String target = request.queryParams("target");
+    if(!this.database.containsKey(target)){
+      throw new NoSuchElementException("Movie Name:" + target + " is not a valid movie name." );
+    }
+
+    if(target.isEmpty()){
+      throw new IllegalArgumentException("Please provide a movie name to initiate search");
+    }
 
     Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
     HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
