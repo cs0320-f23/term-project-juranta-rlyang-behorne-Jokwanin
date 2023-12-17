@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -35,34 +34,67 @@ public class movieHandler implements Route {
   public Object handle(Request request, Response response) {
     // making all characters in the string lowercase
     String target = request.queryParams("target").toLowerCase();
-
-    if(!this.database.containsKey(target)){
-      throw new NoSuchElementException("Movie Name:" + target + " is not a valid movie name." );
-    }
-
-    if(target.isEmpty()){
-      throw new IllegalArgumentException("Please provide a movie name to initiate search");
-    }
-
-    Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
-    HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
-
-    Order order = new Order();
-    ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target));
+    String year = request.queryParams("year");
 
     Moshi moshi = new Moshi.Builder().build();
-    Type listObject = Types.newParameterizedType(List.class, Object.class);
     Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
     JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
     Map<String, Object> responseMap = new HashMap<>();
 
-    ArrayList<Object> topMovies = new ArrayList<>();
-    for (int i = 1; i <= 12; i++) {
-      topMovies.add(orderedList.get(orderedList.size()-i));
+    if(target.isEmpty()){
+      responseMap.put("result", "error_bad_request");
+      responseMap.put("details", "Please provide a movie title.");
+      return adapter.toJson(responseMap);
     }
-    responseMap.put("result", "success");
-    responseMap.put("data", topMovies);
-    return adapter.toJson(responseMap);
+
+    if (year.isEmpty()) {
+      Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+      HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
+      Order order = new Order();
+      ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target));
+      ArrayList<Object> topMovies = new ArrayList<>();
+      for (int i = 1; i <= 12; i++) {
+        topMovies.add(orderedList.get(orderedList.size()-i));
+      }
+      responseMap.put("result", "success");
+      responseMap.put("data", topMovies);
+      return adapter.toJson(responseMap);
+    }
+
+
+
+    if(this.database.containsKey(target+year)){
+      Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+      HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target+year);
+      Order order = new Order();
+      ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target+year));
+      ArrayList<Object> topMovies = new ArrayList<>();
+      for (int i = 1; i <= 12; i++) {
+        topMovies.add(orderedList.get(orderedList.size()-i));
+      }
+      responseMap.put("result", "success");
+      responseMap.put("data", topMovies);
+      return adapter.toJson(responseMap);
+    } else if (this.database.containsKey(target) && this.database.get(target).get("year").equals(year)) {
+      Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+      HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
+      Order order = new Order();
+      ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target));
+      ArrayList<Object> topMovies = new ArrayList<>();
+      for (int i = 1; i <= 12; i++) {
+        topMovies.add(orderedList.get(orderedList.size()-i));
+      }
+      responseMap.put("result", "success");
+      responseMap.put("data", topMovies);
+      return adapter.toJson(responseMap);
+    } else {
+      responseMap.put("result", "error_datasource");
+      responseMap.put("details", "The requested movie is not currently in our data base or does not exist. Please adjust the title and year.");
+      return adapter.toJson(responseMap);
+    }
+
+
+
   }
 
   /**
