@@ -12,8 +12,7 @@ import org.testng.Assert;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.Before;
-import org.testng.Assert;
+
 
 public class TestSetup {
 

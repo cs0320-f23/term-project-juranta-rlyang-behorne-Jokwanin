@@ -43,13 +43,17 @@ public class movieHandler implements Route {
 
     Moshi moshi = new Moshi.Builder().build();
     Type listObject = Types.newParameterizedType(List.class, Object.class);
-    JsonAdapter<List<Object>> adapter = moshi.adapter(listObject);
+    Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
+    JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
+    Map<String, Object> responseMap = new HashMap<>();
 
     ArrayList<Object> topMovies = new ArrayList<>();
     for (int i = 1; i <= 12; i++) {
       topMovies.add(orderedList.get(orderedList.size()-i));
     }
-    return adapter.toJson(topMovies);
+    responseMap.put("result", "success");
+    responseMap.put("data", topMovies);
+    return adapter.toJson(responseMap);
   }
 
   /**

@@ -88,10 +88,11 @@ public class Setup {
             } else {
               movieData.put("description", apiData.get("movie_results").get(0).get("overview"));
             }
-            if (!movieDatabase.containsKey(movie.get(2))) {
-              movieDatabase.put(movie.get(2), movieData);
+            movieData.put("poster_path", apiData.get("movie_results").get(0).get("poster_path"));
+            if (!movieDatabase.containsKey(movie.get(3))) {
+              movieDatabase.put(movie.get(3), movieData);
             } else {
-              movieDatabase.put(movie.get(2) + " " + movie.get(5), movieData);
+              movieDatabase.put(movie.get(3) + " " + movie.get(5), movieData);
               System.out.println("Found duplicate");
             }
           }
@@ -111,10 +112,10 @@ public class Setup {
         if (!genreDatabase.containsKey(genre)) {
           genreDatabase.put(genre, new ArrayList<>());
         }
-        if (genreDatabase.get(genre).contains(movie.get(2))) {
-          genreDatabase.get(genre).add(movie.get(2) + " " + movie.get(5));
+        if (genreDatabase.get(genre).contains(movie.get(3))) {
+          genreDatabase.get(genre).add(movie.get(3) + " " + movie.get(5));
         } else {
-          genreDatabase.get(genre).add(movie.get(2));
+          genreDatabase.get(genre).add(movie.get(3));
         }
       }
     }
@@ -128,16 +129,16 @@ public class Setup {
                 if (!peopleDatabase.containsKey(director)) {
                     peopleDatabase.put(director, new ArrayList<>());
                 }
-                if (!peopleDatabase.get(director).contains(movie.get(2))) {
-                    peopleDatabase.get(director).add(movie.get(2));
+                if (!peopleDatabase.get(director).contains(movie.get(3))) {
+                    peopleDatabase.get(director).add(movie.get(3));
                 }
             }
             for (String writer: this.writers.get(movie.get(0)).split(",")) {
                 if (!peopleDatabase.containsKey(writer)) {
                     peopleDatabase.put(writer, new ArrayList<>());
                 }
-                if (!peopleDatabase.get(writer).contains(movie.get(2))) {
-                    peopleDatabase.get(writer).add(movie.get(2));
+                if (!peopleDatabase.get(writer).contains(movie.get(3))) {
+                    peopleDatabase.get(writer).add(movie.get(3));
                 }
             }
         }
