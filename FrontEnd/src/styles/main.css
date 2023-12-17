@@ -97,6 +97,7 @@ td {
 .movie-title {	
     color: #F2E3BC;
     text-shadow: 2px 2px 5px #ff0000;
+    
     /* text-shadow: 2px 2px 5px #414535; */
 }
 
@@ -105,21 +106,57 @@ td {
     text-shadow: 1px 1px 4px #e2a09f;
 
 }
+.movie-stats{
+    color: #213547;
+    text-shadow: 1px 1px 4px #e2a09f;
+    font-size:17px;
+    font-weight: bold;
+    
+}
 
 .similar-movie-container {
     position: relative;
+    display: flex;
+    
 }
 
-.similar-movie-button {
-    padding: 10px 15px;
-    position: relative;
-    top: 0;
-    right: 0;
-    margin-left: auto;
+.movie-info{
+    top:0;
+    align-self: center;
+    width: 600px; 
+    /*margin-right: 100px;*/
 }
+
+
+.similar-movie-button {
+    height: 50px;
+    width:90px;
+    font-size: 16px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    bottom: 0;
+    left: 0; 
+
+    justify-content: space-between; /* Aligns items to the space between */
+    align-items: start;
+}
+
+.similar-button{
+    display: inline-block;
+    font-size:18px;
+    height:120px;
+    width:90px;
+    padding: 4px;
+}
+
+
 
 .img-and-button{
     display: flex;
+    width:135px;
 }
 
 .similar-movie-button button:hover {
@@ -176,3 +213,18 @@ img {
     margin-left: auto;	
     margin-right: auto;	
   }	
+
+  .loader {
+    border: 20px solid #f3f3f3; /* Light grey background */
+    border-top: 20px solid #3498db; /* Blue color for the spinning part */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    margin:auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
