@@ -64,8 +64,7 @@ public class searchHandler implements Route {
 
       for(Movie myMovie: searchResults.results){
         String [] splitDate = myMovie.release_date.split("-");
-        System.out.println(myMovie.release_date);
-        System.out.println(splitDate.toString());
+
 
         int year;
         int month;

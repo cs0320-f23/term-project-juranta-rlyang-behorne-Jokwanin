@@ -6,7 +6,7 @@
 
 .repl {	
     /* defines the flex container */	
-    display: flexbox;	
+    display: flex;	
 
     /* defines the direction of the container: column like layout*/	
     flex-direction: column;	
@@ -20,7 +20,7 @@
 
 .repl-history {   	
         /* defines the flex container */	
-    display: flexbox;	
+    display: flex;	
 
     /* defines the direction of the container: column like layout*/	
     flex-direction: column;	
@@ -37,7 +37,7 @@
     margin: auto;    	
     height:10vh;	
 }	
-input:hover{	
+.repl-input input:hover{	
     box-shadow: 2px 2px 2px #000000;	
 }	
 .repl-command-box {	
@@ -53,6 +53,24 @@ button{
     display: block;	
 }	
 
+.header-div{
+    position: relative;
+}
+
+.h3-mod{
+    color: #FFB6C1;
+    text-shadow: 2px 2px 5px #000000;
+    position: absolute;
+    margin:0px;
+    top: -13px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 2000;
+
+    	
+} 
+
  table {	
     border: 20px solid rgb(206, 131, 9 0.621);	
     border-collapse: collapse;	
@@ -65,9 +83,12 @@ button{
 } 	
 tr {	
     height: 200px;	
-    max-height: 200px;	
+    max-height: 200px;
+    
 
 } 	
+
+
 
 td {	
     border: 3px solid #C19875;	
@@ -87,12 +108,104 @@ td {
     overflow-y: visible;
     background-color: rgb(56, 187, 174);
     z-index: 20;
-}		
+}
+
+.compare-cell{
+    /*position:relative;*/
+    background-color: rgb(47, 150, 140);
+    /* color: orange; */
+    /*display: flex;*/
+    width: 1000px;
+}	
+.compare-cell :hover{
+    position:relative;
+    overflow-y: visible;
+    background-color: rgb(56, 187, 174);
+    z-index: 20;
+}
+.compare-cell .movie-title{
+    color: black;
+    text-shadow: 2px 2px 5px #ff0000;
+}
+
 
 /* .scrollable-cell {	
     max-width: 400px;	
     max-height: 400px;	
-}	 */
+}	  */
+
+.movie-title {	
+    color: #F2E3BC;
+    text-shadow: 2px 2px 5px #ff0000;
+    
+    /* text-shadow: 2px 2px 5px #414535; */
+}
+
+.movie-output {	
+    color: #213547;
+    text-shadow: 1px 1px 4px #e2a09f;
+
+}
+.movie-stats{
+    color: #213547;
+    text-shadow: 1px 1px 4px #e2a09f;
+    font-size:17px;
+    font-weight: bold;
+    
+}
+
+.similar-movie-container {
+    position: relative;
+    display: flex;
+    
+}
+
+
+.movie-info{
+    top:0;
+    align-self: center;
+    width: 600px; 
+    /*margin-right: 100px;*/
+}
+
+
+.similar-movie-button {
+    height: 50px;
+    width:90px;
+    font-size: 16px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    bottom: 0;
+    left: 0; 
+
+    justify-content: space-between; /* Aligns items to the space between */
+    align-items: start;
+}
+
+.similar-button{
+    display: inline-block;
+    font-size:18px;
+    height:120px;
+    width:90px;
+    padding: 4px;
+}
+
+
+
+.img-and-button{
+    display: flex;
+    width:135px;
+}
+
+.similar-movie-button button:hover {
+    color: rgb(162, 198, 194);
+    background-color: #17181c;
+}
+
+
 
 .description-div {	
     max-height: 250px;	
@@ -141,7 +254,6 @@ img {
     margin-left: auto;	
     margin-right: auto;	
   }	
-
 
   .loader {
     border: 20px solid #f3f3f3; /* Light grey background */

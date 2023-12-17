@@ -6,43 +6,71 @@ import '../../styles/main.css';
 
 interface SearchResultsProps{
     search : String;
+    setSearch :React.Dispatch<React.SetStateAction<string>>;
+
+    compare : boolean;
+    setCompare : React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+
 
 export function SearchResults(props: SearchResultsProps){
     const [movieResults, setMovieResults] = useState<string[]>([]);
 
     const [loading, setLoading] = useState<boolean>(false);
+    
+    
+    const[compareMovie, setCompareMovie] = useState();
 
+    function handleSimilarMovies(title: string, movie: any) {
+        props.setSearch(`search?search=` + title);
+        props.setCompare(true);
+        setCompareMovie(movie);
+    
+      }
     useEffect(() => {
         if(props.search !== ''){
             setLoading(true);
         
             getResults(props.search).then(resultJSON => {
-                //setImageSRC(["https://image.tmdb.org/t/p/original/" + resultJSON.first.poster_path])
                 setLoading(false);
                 setMovieResults(resultJSON);
-        });
+            });   
         }
-        
-        
     }, [props.search]);
 
-    function formatRow(movie : any){
+    function formatRow(movie : any, compareTo : string){
         return(  
                 <tr>
-                <td className='scrollable-cell'>
-                
+                <td className={compareTo}>
                 <div className='description-div'>
-                    <div> 
+                <div className='similar-movie-container'>
+                    <div className='img-and-button'> 
                     <img
                     src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
                     alt={movie.title} />
-                    {movie.title + "-->"}
-                    {movie.overview}
-                    <p></p>
-                    {movie.release_date}
-                    <p></p>
-                    {movie.vote_average}
+                    </div>
+
+                    
+
+                    <div className='movie-info'>
+                        <h2 className='movie-title'> {movie.title}</h2>
+                        <div className='movie-stats'> {"Release Date: " + movie.release_date}</div>
+                        <div className='movie-stats'>{"Movie Score: " + movie.vote_average} </div>
+                        <p className='movie-output'>{movie.overview}</p>
+                        
+                    </div>
+
+                    <div className="similar-movie-button">
+                        <button
+                        className='similar-button'
+                        aria-label= "Find Similar Movies"
+                        aria-description= {"Click this button to find similar movies to " + movie.title}
+                        onClick={() => handleSimilarMovies(movie.title, movie)}
+                        >
+                        Find Similar Movies! 
+                        </button>
+                    </div>
                     </div></div>
                 </td>
                 </tr>
@@ -70,18 +98,40 @@ export function SearchResults(props: SearchResultsProps){
             </div>
         )
     } else {
-        return(
-            <div>
-                <br></br>
-                <table className="center" >
-                <tbody>
-                    {movieResults.map((eachMovie) => {
-                        return formatRow(eachMovie);
-                    })}
-                </tbody>
-            </table>
-            </div>
-        )
+        if(props.compare){
+            return(
+                <div>
+                    <br></br>
+                    <div className='header-div'>
+                    <h3 className='h3-mod'> Movies Similar To: </h3>
+                    <table className="center" >
+                    <tbody>
+                        {formatRow(compareMovie, "compare-cell")}
+                        <br></br>
+                        <br></br>
+                        {movieResults.map((eachMovie) => {
+                            return formatRow(eachMovie, "scrollable-cell");
+                        })}
+                    </tbody>
+                </table>
+                </div>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    <br></br>
+                    <table className="center" >
+                    <tbody>
+                        {movieResults.map((eachMovie) => {
+                            return formatRow(eachMovie, "scrollable-cell");
+                        })}
+                    </tbody>
+                </table>
+                </div>
+            )
+        }
+        
     }
     
 

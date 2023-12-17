@@ -26,9 +26,9 @@ public class Main {
         });
 
 
-
-    Spark.get("recommendation", new movieHandler());
     Spark.get("search", new searchHandler());
+    //Spark.get("recommendation", new movieHandler());
+    
 
     Spark.init();
     Spark.awaitInitialization();

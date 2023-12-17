@@ -17,12 +17,16 @@ export default function Searcher() {
   const [currentFile, setCurrentFile] = useState<string[][]>([[]]);
   const [search, setSearch] = useState<string>("");
 
+  const [compare, setCompare] = useState<boolean>(false);
+
   //const updateHistory
   return (
     <div className="Searcher">  
       <MovieInput modeB = {modeB} history={history} setHistory={setHistory} setModeB={setModeB} 
-      setCurrentFile={setCurrentFile} currentFile={currentFile} setSearch={setSearch}/>
-      <SearchResults search = {search}/>
+      setCurrentFile={setCurrentFile} currentFile={currentFile} setSearch={setSearch}
+      setCompare={setCompare}/>
+      <SearchResults search = {search} setSearch={setSearch} compare={compare} 
+      setCompare={setCompare}/>
     </div>
   );
 }
