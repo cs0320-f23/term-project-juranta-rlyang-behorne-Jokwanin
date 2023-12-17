@@ -6,7 +6,7 @@
 
 .repl {	
     /* defines the flex container */	
-    display: flexbox;	
+    display: flex;	
 
     /* defines the direction of the container: column like layout*/	
     flex-direction: column;	
@@ -20,7 +20,7 @@
 
 .repl-history {   	
         /* defines the flex container */	
-    display: flexbox;	
+    display: flex;	
 
     /* defines the direction of the container: column like layout*/	
     flex-direction: column;	
@@ -37,7 +37,7 @@
     margin: auto;    	
     height:10vh;	
 }	
-input:hover{	
+.repl-input input:hover{	
     box-shadow: 2px 2px 2px #000000;	
 }	
 .repl-command-box {	
@@ -112,9 +112,14 @@ td {
 
 .similar-movie-button {
     padding: 10px 15px;
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
+    margin-left: auto;
+}
+
+.img-and-button{
+    display: flex;
 }
 
 .similar-movie-button button:hover {
@@ -171,19 +176,3 @@ img {
     margin-left: auto;	
     margin-right: auto;	
   }	
-
-
-  .loader {
-    border: 20px solid #f3f3f3; /* Light grey background */
-    border-top: 20px solid #3498db; /* Blue color for the spinning part */
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    animation: spin 2s linear infinite;
-    margin:auto;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }

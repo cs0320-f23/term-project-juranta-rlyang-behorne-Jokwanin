@@ -38,7 +38,7 @@ export function SearchResults(props: SearchResultsProps){
                 <td className='scrollable-cell'>
                 <div className='description-div'>
                 <div className="similar-movie-container">
-                    <div> 
+                    <div className='img-and-button'> 
                     <img
                     src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
                     alt={movie.title} />
