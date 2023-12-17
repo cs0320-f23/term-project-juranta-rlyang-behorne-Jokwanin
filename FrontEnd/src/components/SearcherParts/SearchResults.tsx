@@ -6,38 +6,45 @@ import '../../styles/main.css';
 
 interface SearchResultsProps{
     search : String;
+    setSearch :React.Dispatch<React.SetStateAction<string>>;
+
+    compare : boolean;
+    setCompare : React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function handleSimilarMovies() {
-    
 
-  }
 
 export function SearchResults(props: SearchResultsProps){
     const [movieResults, setMovieResults] = useState<string[]>([]);
 
     const [loading, setLoading] = useState<boolean>(false);
+    
+    
+    const[compareMovie, setCompareMovie] = useState();
 
+    function handleSimilarMovies(title: string, movie: any) {
+        props.setSearch(`search?search=` + title);
+        props.setCompare(true);
+        setCompareMovie(movie);
+    
+      }
     useEffect(() => {
         if(props.search !== ''){
             setLoading(true);
         
             getResults(props.search).then(resultJSON => {
-                //setImageSRC(["https://image.tmdb.org/t/p/original/" + resultJSON.first.poster_path])
                 setLoading(false);
                 setMovieResults(resultJSON);
-        });
+            });   
         }
-        
-        
     }, [props.search]);
 
-    function formatRow(movie : any){
+    function formatRow(movie : any, compareTo : string){
         return(  
                 <tr>
-                <td className='scrollable-cell'>
+                <td className={compareTo}>
                 <div className='description-div'>
-                <div className="similar-movie-container">
+                <div className='similar-movie-container'>
                     <div className='img-and-button'> 
                     <img
                     src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
@@ -59,7 +66,7 @@ export function SearchResults(props: SearchResultsProps){
                         className='similar-button'
                         aria-label= "Find Similar Movies"
                         aria-description= {"Click this button to find similar movies to " + movie.title}
-                        onClick={() => handleSimilarMovies()}
+                        onClick={() => handleSimilarMovies(movie.title, movie)}
                         >
                         Find Similar Movies! 
                         </button>
@@ -91,18 +98,40 @@ export function SearchResults(props: SearchResultsProps){
             </div>
         )
     } else {
-        return(
-            <div>
-                <br></br>
-                <table className="center" >
-                <tbody>
-                    {movieResults.map((eachMovie) => {
-                        return formatRow(eachMovie);
-                    })}
-                </tbody>
-            </table>
-            </div>
-        )
+        if(props.compare){
+            return(
+                <div>
+                    <br></br>
+                    <div className='header-div'>
+                    <h3 className='h3-mod'> Movies Similar To: </h3>
+                    <table className="center" >
+                    <tbody>
+                        {formatRow(compareMovie, "compare-cell")}
+                        <br></br>
+                        <br></br>
+                        {movieResults.map((eachMovie) => {
+                            return formatRow(eachMovie, "scrollable-cell");
+                        })}
+                    </tbody>
+                </table>
+                </div>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    <br></br>
+                    <table className="center" >
+                    <tbody>
+                        {movieResults.map((eachMovie) => {
+                            return formatRow(eachMovie, "scrollable-cell");
+                        })}
+                    </tbody>
+                </table>
+                </div>
+            )
+        }
+        
     }
     
 

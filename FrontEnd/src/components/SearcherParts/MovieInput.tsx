@@ -16,6 +16,8 @@ interface MovieInputProps{
   setCurrentFile: React.Dispatch<React.SetStateAction<string[][]>>;
   currentFile: string[][];
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+
+  setCompare: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function MovieInput(props : MovieInputProps) {
@@ -49,7 +51,7 @@ export function MovieInput(props : MovieInputProps) {
       const monthmax : string = maxSplit[1];
       console.log(monthmin);
 
-      let searchURL :string = `?search=` + commandString;
+      let searchURL :string = `search?search=` + commandString;
       if(minYear !== '' && isCheckedDate){
         searchURL = searchURL + `&minYear=`+ minYear +`&minMonth=`+ monthmin ;
       }
@@ -64,6 +66,8 @@ export function MovieInput(props : MovieInputProps) {
       }
 
       console.log(searchURL);
+
+      props.setCompare(false)
       props.setSearch(searchURL)
     }
 

@@ -53,6 +53,24 @@ button{
     display: block;	
 }	
 
+.header-div{
+    position: relative;
+}
+
+.h3-mod{
+    color: #FFB6C1;
+    text-shadow: 2px 2px 5px #000000;
+    position: absolute;
+    margin:0px;
+    top: -13px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 2000;
+
+    	
+} 
+
  table {	
     border: 20px solid rgb(206, 131, 9 0.621);	
     border-collapse: collapse;	
@@ -65,9 +83,12 @@ button{
 } 	
 tr {	
     height: 200px;	
-    max-height: 200px;	
+    max-height: 200px;
+    
 
 } 	
+
+
 
 td {	
     border: 3px solid #C19875;	
@@ -87,12 +108,31 @@ td {
     overflow-y: visible;
     background-color: rgb(56, 187, 174);
     z-index: 20;
-}		
+}
+
+.compare-cell{
+    /*position:relative;*/
+    background-color: rgb(47, 150, 140);
+    /* color: orange; */
+    /*display: flex;*/
+    width: 1000px;
+}	
+.compare-cell :hover{
+    position:relative;
+    overflow-y: visible;
+    background-color: rgb(56, 187, 174);
+    z-index: 20;
+}
+.compare-cell .movie-title{
+    color: black;
+    text-shadow: 2px 2px 5px #ff0000;
+}
+
 
 /* .scrollable-cell {	
     max-width: 400px;	
     max-height: 400px;	
-}	 */
+}	  */
 
 .movie-title {	
     color: #F2E3BC;
@@ -119,6 +159,7 @@ td {
     display: flex;
     
 }
+
 
 .movie-info{
     top:0;
