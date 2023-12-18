@@ -86,23 +86,24 @@ export function SearchResults(props: SearchResultsProps){
                     <div className='img-and-button'> 
                     <img
                     src={"https://image.tmdb.org/t/p/original/" + movie.poster_path}
-                    alt={movie.title} />
+                    alt={movie.title} 
+                    aria-label={'Image of the movie ' + movie.title}/>
                     </div>
 
                     
 
                     <div className='movie-info'>
-                        <h2 className='movie-title'> {movie.title}</h2>
-                        <div className='movie-stats'> {"Release Date: " + movie.release_date}</div>
-                        <div className='movie-stats'>{"Movie Score: " + movie.vote_average} </div>
-                        <p className='movie-output'>{movie.overview}</p>
+                        <h2 className='movie-title' aria-label={movie.title}> {movie.title} </h2>
+                        <div className='movie-stats' aria-label={"Release Date: " + movie.release_date}> {"Release Date: " + movie.release_date} </div>
+                        <div className='movie-stats' aria-label={"Movie Score: " + movie.vote_average}> {"Movie Score: " + movie.vote_average} </div>
+                        <p className='movie-output' aria-aria-description={"Movie Overview: " + movie.overview}> {movie.overview} </p>
                         
                     </div>
 
                     <div className="similar-movie-button">
                         <button
                         className='similar-button'
-                        aria-label= "Find Similar Movies"
+                        aria-label= "Button to Find Similar Movies"
                         aria-description= {"Click this button to find similar movies to " + movie.title}
                         onClick={() => handleSimilarMovies(movie)}
                         >
@@ -120,7 +121,8 @@ export function SearchResults(props: SearchResultsProps){
                 <br></br>
                 <br></br>
                 <br></br>
-            <div className='loader'></div>
+            <div className='loader' aria-label='Loading Icon'
+            aria-aria-description='Image of loading Icon to signify buffering'></div>
             </div>
         )
     }
@@ -131,13 +133,20 @@ export function SearchResults(props: SearchResultsProps){
                 <div>
                     <br></br>
                     <div className='header-div'>
-                    <h3 className='h3-mod'> Movies Similar To: </h3>
-                    <table className="center" >
+                    <h3 className='h3-mod' aria-label='Movies Similar To:'> 
+                        Movies Similar To: 
+                    </h3>
+                    <table className="center" 
+                    aria-label='Table' 
+                    aria-description='Table contains a a list of movies similar 
+                    to the one you chose in decending order'>
                     <tbody>
                         {formatRow(compareMovie, "compare-cell")}
                         <br></br>
                         <br></br>
-                        <h2>Could not find similar movies!</h2>
+                        <h2 aria-label='Could not find similar movies!'>
+                            Could not find similar movies!
+                        </h2>
                     </tbody>
                 </table>
                 </div>
@@ -148,8 +157,13 @@ export function SearchResults(props: SearchResultsProps){
                 <div>
                     <br></br>
                     <div className='header-div'>
-                    <h3 className='h3-mod'> Movies Similar To: </h3>
-                    <table className="center" >
+                    <h3 className='h3-mod' aria-label='Movies Similar To:'>
+                         Movies Similar To:
+                    </h3>
+                    <table className="center" 
+                    aria-label='Table' 
+                    aria-description='Table contains a a list of movies similar 
+                    to the one you chose in decending order'>
                     <tbody>
                         {formatRow(compareMovie, "compare-cell")}
                         <br></br>
@@ -171,7 +185,7 @@ export function SearchResults(props: SearchResultsProps){
                     <br></br>
                     <table className="center" >
                     <tbody>
-                        <div>No Results!</div>
+                        <div aria-label='No Results!'>No Results!</div>
                     </tbody>
                 </table>
                 </div>
@@ -180,7 +194,10 @@ export function SearchResults(props: SearchResultsProps){
             return(
                 <div>
                     <br></br>
-                    <table className="center" >
+                    <table className="center" 
+                    aria-label='Table' 
+                    aria-description='Table contains a a list of movies similar 
+                    to the one you chose in decending order'>
                     <tbody>
                         {movieResults.map((eachMovie) => {
                             return formatRow(eachMovie, "scrollable-cell");
@@ -194,169 +211,4 @@ export function SearchResults(props: SearchResultsProps){
         
     }
     
-    
-
-
-    return(
-        <div>
-            <br></br>
-            <br></br>
-            <br></br>
-        <table className="center" >
-            <tbody>
-                {/* ROW 1 */}
-                <tr>
-                <td className='scrollable-cell'>
-                
-                <div className='description-div'>
-                    <div> 
-                    <img // class="fit-picture"
-                    src=""
-                    alt="Grapefruit slice atop a pile of other slices" />
-                    <p></p>
-                    START Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</div></div>
-                </td>
-                <td className='scrollable-cell'>
-                
-                <div className='description-div'>
-                    
-                    <div> 
-                    <img // class="fit-picture"
-                    src=""
-                    alt="Grapefruit slice atop a pile of other slices" />
-                    <p></p>
-                    START Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</div></div> 
-                </td>
-                <td className='scrollable-cell'>
-                
-                <div className='description-div'>
-                    <img
-                        // class="fit-picture"
-                    src=""
-                    alt="Grapefruit slice atop a pile of other slices" />
-                    <p> 
-                     Filler Text</p></div> 
-                </td>
-                {/* <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td> */}
-                </tr>
-                <br></br>
-                <br></br>
-                <br></br>
-                {/* ROW 2 */}
-                <tr>
-                <td className='scrollable-cell'>
-                 
-                <div className='description-div'>
-                    <img
-                        // class="fit-picture"
-                    src="..\..\images\grapefruit-slice.jpg"
-                    alt="Grapefruit slice atop a pile of other slices" />
-                    <p> START Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</p></div>
-                </td>
-                <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" />
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td>
-                <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td>
-                {/*<td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td> */}
-                </tr>
-                <br></br>
-                <br></br>
-                <br></br>
-                {/* ROW 3 */}
-                <tr>
-                <td className='scrollable-cell'>
-                
-                <div className='description-div'>
-                    <img
-                        // class="fit-picture"
-                    src="..\..\images\grapefruit-slice.jpg"
-                    alt="Grapefruit slice atop a pile of other slices" /> 
-                    <p> START Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    Verbose Filler Text Verbose Filler Text Verbose Filler Text 
-                    END</p></div>
-                </td>
-                <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" />
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td>
-                <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td>
-                {/* <td className='scrollable-cell'>
-                <img
-                    // class="fit-picture"
-                src="..\..\images\grapefruit-slice.jpg"
-                alt="Grapefruit slice atop a pile of other slices" /> 
-                <div className='description-div'><p> Filler Text</p></div> 
-                </td> */}
-                </tr>
-            </tbody>
-        </table>
-
-        </div>
-    )
-
 }

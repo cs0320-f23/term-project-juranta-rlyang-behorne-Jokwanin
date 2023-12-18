@@ -41,33 +41,41 @@ export function Filters(props : filtersProps){
             <p></p>
             <div className = "dual-container">
                 <div className="input-container">
-                    <div>Release Date:</div>
-                    <input type='month' value = {props.minMonth}
-                    onChange={handleMinMonthChange}></input>
+                    <div aria-label='Release Date Filter'>Release Date:</div>
+                    <input type='month' value = {props.minMonth} 
+                    onChange={handleMinMonthChange}
+                    aria-description='Enter the oldest year for your filter'>
+                    </input>
+
                     <div>  to  </div>
+
                     <input type='month' value = {props.maxMonth}
-                    onChange={handleMaxMonthChange}></input>
-                    <div className='apply-filter'> Apply Filter: </div>
-                    <input type='checkbox' 
-                    checked={props.isCheckedDate}
-                    onChange={() => props.setIsCheckedDate(!props.isCheckedDate)} />
+                    onChange={handleMaxMonthChange}
+                    aria-description='Enter the most recent year for your filter'>
+                    </input>
+                    <div className='apply-filter' aria-label='Apply Filter'> Apply Filter: </div>
+                    <input type='checkbox' checked={props.isCheckedDate}
+                    onChange={() => props.setIsCheckedDate(!props.isCheckedDate)} 
+                    aria-label='Checkbox for Filter'/>
                 </div>
 
                 <div className="input-container">
-                    <div>Audience Rating:</div>
-                    <input type='number'
-                    placeholder='e.g. 1.0'
-                    value = {props.minScore} 
-                    onChange={(e) => props.setMinScore(e.target.value)}></input>
+                    <div aria-label='Audience Rating Filter'>Audience Rating:</div>
+                    <input type='number' placeholder='e.g. 1.0' value = {props.minScore} 
+                    onChange={(e) => props.setMinScore(e.target.value)}
+                    aria-description='Enter the lowest Audience Rating Score for your filter'>
+                    </input>
+
                     <div>  to  </div>
-                    <input type='number'
-                    placeholder='e.g. 10.0'
-                    value = {props.maxScore} 
-                    onChange={(e) => props.setMaxScore(e.target.value)}></input>
-                    <div className='apply-filter'> Apply Filter: </div>
-                    <input type='checkbox' 
-                    checked={props.isCheckedScore}
-                    onChange={() => props.setIsCheckedScore(!props.isCheckedScore)} />
+
+                    <input type='number' placeholder='e.g. 10.0' value = {props.maxScore} 
+                    onChange={(e) => props.setMaxScore(e.target.value)}
+                    aria-description='Enter the highest Audience Rating Score for your filter'>
+                    </input>
+                    <div className='apply-filter' aria-label='Apply Filter'> Apply Filter: </div>
+                    <input type='checkbox' checked={props.isCheckedScore}
+                    onChange={() => props.setIsCheckedScore(!props.isCheckedScore)} 
+                    aria-label='Checkbox for Filter'/>
                 </div>
             </div>
             
