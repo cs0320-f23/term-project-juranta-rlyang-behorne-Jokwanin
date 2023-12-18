@@ -24,12 +24,12 @@ public class Setup {
   private HashMap<String, String> writers;
 
     public Setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("/Users/jasonuranta/CS32/Term Project/term-project-juranta-rlyang-behorne-Jokwanin/backend/data/ImdbTitleBasics.csv");
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleBasics.csv");
         Search filterMovie = new Search(fileReader, "movie", "2", true, false);
         this.movieList = filterMovie.beginSearch();
 
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
-        fileReader = new FileReader("/Users/jasonuranta/CS32/Term Project/term-project-juranta-rlyang-behorne-Jokwanin/backend/data/ImdbName.csv");
+        fileReader = new FileReader("backend/data/ImdbName.csv");
         CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> people = parsedName.parse();
         this.nameMap = new HashMap<>();
@@ -37,7 +37,7 @@ public class Setup {
             this.nameMap.put(person.get(0), person.get(1));
         }
 
-        fileReader = new FileReader("/Users/jasonuranta/CS32/Term Project/term-project-juranta-rlyang-behorne-Jokwanin/backend/data/ImdbTitleCrew.csv");
+        fileReader = new FileReader("backend/data/ImdbTitleCrew.csv");
         CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> crew = parsedCrew.parse();
         this.directors = new HashMap<>();
@@ -51,7 +51,7 @@ public class Setup {
         }
     }
     public HashMap<String, HashMap<String, String>> setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("/Users/jasonuranta/CS32/Term Project/term-project-juranta-rlyang-behorne-Jokwanin/backend/data/ImdbTitleRatings.csv");
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleRatings.csv");
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
         CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> ratings = parsedRatings.parse();
@@ -70,9 +70,9 @@ public class Setup {
             HashMap<String, String> movieData = new HashMap<>();
             movieData.put("id", movie.get(0));
             movieData.put("title", movie.get(2));
-            movieData.put("year", movie.get(5));
+            movieData.put("release_date", movie.get(5));
             movieData.put("genre", movie.get(8));
-            movieData.put("ratings", ratingsMap.get(movie.get(0)).get(1));
+            movieData.put("vote_average", ratingsMap.get(movie.get(0)).get(1));
 
             movieData.put("directors", this.directors.get(movie.get(0)));
 
@@ -84,9 +84,9 @@ public class Setup {
                             + movie.get(0)
                             + "?external_source=imdb_id&api_key=883f76f29f755de0582499a099f512a8"));
             if (apiData.get("movie_results").isEmpty()) {
-              movieData.put("description", null);
+              movieData.put("overview", null);
             } else {
-              movieData.put("description", apiData.get("movie_results").get(0).get("overview"));
+              movieData.put("overview", apiData.get("movie_results").get(0).get("overview"));
             }
             movieData.put("poster_path", apiData.get("movie_results").get(0).get("poster_path"));
             if (!movieDatabase.containsKey(movie.get(3))) {

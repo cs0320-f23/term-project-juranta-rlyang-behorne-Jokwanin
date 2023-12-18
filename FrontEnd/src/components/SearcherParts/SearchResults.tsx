@@ -22,8 +22,34 @@ export function SearchResults(props: SearchResultsProps){
     
     const[compareMovie, setCompareMovie] = useState();
 
-    function handleSimilarMovies(title: string, movie: any) {
-        props.setSearch(`search?search=` + title);
+    function handleSimilarMovies(movie: any) {
+        const date = movie.release_date.split("-");
+        let movieSplit :string = ``;
+        if(compareMovie){
+            movieSplit = movie.title.split(" ");
+        } else {
+            movieSplit = movie.original_title.split(" ");
+        }
+
+        let resultTitle = '';
+        let first = true;
+        console.log(movieSplit);
+        for(const piece of movieSplit){
+            if(first){
+                resultTitle = piece;
+                first = false;
+            } else {
+                resultTitle = resultTitle + '+' + piece;
+            }
+            
+        }
+        if(date[0] === ''){
+            props.setSearch(`recommendation?target=` + resultTitle + `&year=1203`);
+        } else {
+            props.setSearch(`recommendation?target=` + resultTitle + `&year=` + date[0]);
+        }
+        
+        console.log(props.search);
         props.setCompare(true);
         setCompareMovie(movie);
     
@@ -31,11 +57,23 @@ export function SearchResults(props: SearchResultsProps){
     useEffect(() => {
         if(props.search !== ''){
             setLoading(true);
-        
+            
             getResults(props.search).then(resultJSON => {
                 setLoading(false);
-                setMovieResults(resultJSON);
-            });   
+                if(props.compare){
+                    if(resultJSON.result === "error_datasource"){
+                        setMovieResults([]);
+                    } else {
+                        setMovieResults(resultJSON.data);
+                    }
+                    
+                } else {
+                    setMovieResults(resultJSON);
+                }
+                
+            }); 
+                
+        
         }
     }, [props.search]);
 
@@ -66,7 +104,7 @@ export function SearchResults(props: SearchResultsProps){
                         className='similar-button'
                         aria-label= "Find Similar Movies"
                         aria-description= {"Click this button to find similar movies to " + movie.title}
-                        onClick={() => handleSimilarMovies(movie.title, movie)}
+                        onClick={() => handleSimilarMovies(movie)}
                         >
                         Find Similar Movies! 
                         </button>
@@ -86,19 +124,26 @@ export function SearchResults(props: SearchResultsProps){
             </div>
         )
     }
-    if(movieResults.length === 0){
-        return(
-            <div>
-                <br></br>
-                <table className="center" >
-                <tbody>
-                    <div>No Results!</div>
-                </tbody>
-            </table>
-            </div>
-        )
-    } else {
-        if(props.compare){
+
+    if(props.compare){
+        if(movieResults.length === 0){
+            return(
+                <div>
+                    <br></br>
+                    <div className='header-div'>
+                    <h3 className='h3-mod'> Movies Similar To: </h3>
+                    <table className="center" >
+                    <tbody>
+                        {formatRow(compareMovie, "compare-cell")}
+                        <br></br>
+                        <br></br>
+                        <h2>Could not find similar movies!</h2>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+            )
+        } else {
             return(
                 <div>
                     <br></br>
@@ -117,6 +162,20 @@ export function SearchResults(props: SearchResultsProps){
                 </div>
                 </div>
             )
+        }
+        
+    } else {
+        if(movieResults.length === 0){
+            return(
+                <div>
+                    <br></br>
+                    <table className="center" >
+                    <tbody>
+                        <div>No Results!</div>
+                    </tbody>
+                </table>
+                </div>
+            )
         } else {
             return(
                 <div>
@@ -130,9 +189,11 @@ export function SearchResults(props: SearchResultsProps){
                 </table>
                 </div>
             )
+            
         }
         
     }
+    
     
 
 

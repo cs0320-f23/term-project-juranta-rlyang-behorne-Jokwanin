@@ -50,10 +50,10 @@ public class Order {
         if (comparison.get("writers").equals(target.get("writers"))) {
             score += 0.1;
         }
-        if (Integer.parseInt(comparison.get("year")) == Integer.parseInt(target.get("year"))) {
+        if (Integer.parseInt(comparison.get("release_date")) == Integer.parseInt(target.get("release_date"))) {
             score += 0.1;
         } else {
-            double difference = Integer.parseInt(target.get("year")) - Integer.parseInt(comparison.get("year"));
+            double difference = Integer.parseInt(target.get("release_date")) - Integer.parseInt(comparison.get("release_date"));
             if (difference > 0) {
                 difference *= -1;
             }

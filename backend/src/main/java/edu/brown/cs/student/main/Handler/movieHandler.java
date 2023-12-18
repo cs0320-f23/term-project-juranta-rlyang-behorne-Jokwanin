@@ -75,7 +75,7 @@ public class movieHandler implements Route {
       responseMap.put("result", "success");
       responseMap.put("data", topMovies);
       return adapter.toJson(responseMap);
-    } else if (this.database.containsKey(target) && this.database.get(target).get("year").equals(year)) {
+    } else if (this.database.containsKey(target) && this.database.get(target).get("release_date").equals(year)) {
       Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
       HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
       Order order = new Order();
