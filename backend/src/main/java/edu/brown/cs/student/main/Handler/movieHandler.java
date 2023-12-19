@@ -41,13 +41,29 @@ public class movieHandler implements Route {
     JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
     Map<String, Object> responseMap = new HashMap<>();
 
-    if(target.isEmpty()){
+    if (target == null) {
+      responseMap.put("result", "error_bad_request");
+      responseMap.put("details", "Please provide a movie title.");
+      return adapter.toJson(responseMap);
+    } else if(target.isEmpty()){
       responseMap.put("result", "error_bad_request");
       responseMap.put("details", "Please provide a movie title.");
       return adapter.toJson(responseMap);
     }
 
-    if (year.isEmpty()) {
+    if (year == null) {
+      Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
+      HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
+      Order order = new Order();
+      ArrayList<HashMap<String, String>> orderedList = order.order(filteredDatabase, database.get(target));
+      ArrayList<Object> topMovies = new ArrayList<>();
+      for (int i = 1; i <= 12; i++) {
+        topMovies.add(orderedList.get(orderedList.size()-i));
+      }
+      responseMap.put("result", "success");
+      responseMap.put("data", topMovies);
+      return adapter.toJson(responseMap);
+    } else if (year.isEmpty()) {
       Filter filter = new Filter(this.database, this.genreDatabase, this.peopleDatabase);
       HashMap<String, HashMap<String, String>> filteredDatabase = filter.getFilteredList(target);
       Order order = new Order();
