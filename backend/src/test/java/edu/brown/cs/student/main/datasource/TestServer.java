@@ -5,19 +5,23 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 import edu.brown.cs.student.main.Handler.movieHandler;
 import edu.brown.cs.student.main.csv.FactoryFailureException;
-import org.junit.jupiter.api.AfterEach;
+import okio.Buffer;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.After;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import spark.Spark;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestServer {
 
@@ -31,7 +35,7 @@ public class TestServer {
     }
 
     /** Taken directly from the livecode as stencil. */
-    @AfterEach
+    @After
     public void tearDown() {
         Spark.unmap("recommendation");
         Spark.awaitStop(); // Don't proceed until the server is stopped.
@@ -46,7 +50,7 @@ public class TestServer {
      * Runs before EACH testcase. Taken generally (with some modifications) from the livecode as
      * stencil.
      */
-    @BeforeEach
+    @Before
     public void setup() throws IOException, FactoryFailureException {
         Spark.get("recommendation", new movieHandler());
         Spark.awaitInitialization(); // Don't continue until the server is listening.
@@ -78,5 +82,57 @@ public class TestServer {
         clientConnection.setRequestProperty("Accept", "application/json");
         clientConnection.connect();
         return clientConnection;
+    }
+
+    @Test
+    public void testQuery() throws IOException {
+        HttpURLConnection loadConnection1 =
+                tryRequest("recommendation");
+        assertEquals(200, loadConnection1.getResponseCode());
+        Map<String, Object> body1 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection1.getInputStream()));
+        Assertions.assertEquals("error_bad_request", body1.get("result"));
+
+        HttpURLConnection loadConnection2 =
+                tryRequest("recommendation?target=");
+        assertEquals(200, loadConnection2.getResponseCode());
+        Map<String, Object> body2 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection2.getInputStream()));
+        Assertions.assertEquals("error_bad_request", body2.get("result"));
+
+        HttpURLConnection loadConnection6 =
+                tryRequest("recommendation?target=asgafasf");
+        assertEquals(200, loadConnection6.getResponseCode());
+        Map<String, Object> body6 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection6.getInputStream()));
+        Assertions.assertEquals("error_datasource", body6.get("result"));
+
+        HttpURLConnection loadConnection7 =
+                tryRequest("recommendation?target=dune&year=2021");
+        assertEquals(200, loadConnection7.getResponseCode());
+        Map<String, Object> body7 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection7.getInputStream()));
+        Assertions.assertEquals("error_datasource", body7.get("result"));
+
+        HttpURLConnection loadConnection3 =
+                tryRequest("recommendation?target=blade+runner");
+        assertEquals(200, loadConnection3.getResponseCode());
+        Map<String, Object> body3 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection3.getInputStream()));
+        Assertions.assertEquals("success", body3.get("result"));
+
+        HttpURLConnection loadConnection4 =
+                tryRequest("recommendation?target=blade+runner&year=");
+        assertEquals(200, loadConnection4.getResponseCode());
+        Map<String, Object> body4 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection4.getInputStream()));
+        Assertions.assertEquals("success", body4.get("result"));
+
+        HttpURLConnection loadConnection5 =
+                tryRequest("recommendation?target=blade+runner&year=1982");
+        assertEquals(200, loadConnection5.getResponseCode());
+        Map<String, Object> body5 =
+                adapter.fromJson(new Buffer().readFrom(loadConnection5.getInputStream()));
+        Assertions.assertEquals("success", body5.get("result"));
     }
 }
