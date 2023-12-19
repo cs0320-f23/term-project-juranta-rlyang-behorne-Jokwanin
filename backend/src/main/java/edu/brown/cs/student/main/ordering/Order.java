@@ -47,9 +47,6 @@ public class Order {
                 }
             }
         }
-        if (comparison.get("writers").equals(target.get("writers"))) {
-            score += 0.1;
-        }
         if (Integer.parseInt(comparison.get("release_date")) == Integer.parseInt(target.get("release_date"))) {
             score += 0.1;
         } else {
@@ -61,19 +58,12 @@ public class Order {
         }
         Cosine cosine = new Cosine();
         if (comparison.get("overview") != null && target.get("overview") != null) {
-            score = cosine.similarity(comparison.get("overview"), target.get("overview"));
+            score += cosine.similarity(comparison.get("overview"), target.get("overview"));
         }
         return score;
     }
 
     private ArrayList<ArrayList<String>> sort(ArrayList<ArrayList<String>> list) {
-        /*if (start < end) {
-            int middle = start + (end-1)/2;
-            sort(start, middle);
-            sort(middle+1, end);
-
-            this.merge(start, middle, end);
-        }*/
         if (list.size() <= 1) {
             return list;
         }
@@ -94,33 +84,6 @@ public class Order {
     }
 
     private ArrayList<ArrayList<String>> merge(ArrayList<ArrayList<String>> left, ArrayList<ArrayList<String>> right) {
-        /*int length1 = middle-start+1;
-        int length2 = end-middle;
-
-    ArrayList<ArrayList<String>> left = new ArrayList<>(length1);
-    ArrayList<ArrayList<String>> right = new ArrayList<>(length2);
-
-    for (int i = 0; i < length1; i++) {
-      left.add(i, this.scoreList.get(start + i));
-    }
-    for (int i = 0; i < length2; i++) {
-      right.add(i, this.scoreList.get(middle + 1 + i));
-    }
-
-        int i = 0, j = 0;
-        int k = start;
-        while (i < length1 && j < length2) {
-            if (Double.parseDouble(left.get(i).get(1)) <= Double.parseDouble(right.get(j).get(1))) {
-                this.scoreList.remove(k);
-                this.scoreList.add(k, left.get(i));
-                i++;
-            } else {
-                this.scoreList.remove(k);
-                this.scoreList.add(k, right.get(i));
-                j++;
-            }
-            k++;
-        }*/
         ArrayList<ArrayList<String>> ret = new ArrayList<>();
 
         while(!left.isEmpty() && !right.isEmpty()) {
