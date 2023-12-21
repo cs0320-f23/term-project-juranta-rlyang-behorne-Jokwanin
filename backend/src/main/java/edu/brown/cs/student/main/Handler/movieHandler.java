@@ -17,12 +17,21 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Sets up recommendation endpoint to retrieve and return a list of the 12 most similar movies
+ * to the inputted movie
+ */
 public class movieHandler implements Route {
 
   private HashMap<String, HashMap<String, String>> database;
   private HashMap<String, ArrayList<String>> genreDatabase;
   private HashMap<String, ArrayList<String>> peopleDatabase;
 
+  /**
+   * Does preprocessing to set up the databases that are used to generate the recommendations
+   * @throws IOException
+   * @throws FactoryFailureException
+   */
   public movieHandler() throws IOException, FactoryFailureException {
     Setup setup = new Setup();
     this.database = setup.setup();
@@ -30,6 +39,13 @@ public class movieHandler implements Route {
     this.peopleDatabase = setup.setupPeopleDB();
   }
 
+  /**
+   * Handles recommendation calls. If a title is properly inputted it returns a list of hashmaps
+   * that each represent a movie, and if not it'll return an error message.
+   * @param request
+   * @param response
+   * @return
+   */
   @Override
   public Object handle(Request request, Response response) {
     // making all characters in the string lowercase
@@ -98,27 +114,5 @@ public class movieHandler implements Route {
       responseMap.put("details", "The requested movie is not currently in our data base or does not exist. Please adjust the title and year.");
       return adapter.toJson(responseMap);
     }
-
-
-
-  }
-
-  /**
-   * A method that encapsulates the serialization of a JSON object. This method is used to serialize
-   * the results from searching the CSV into a JSON object for the user to see.
-   *
-   * @param result - Whether the execution of this request was done successfully or not
-   * @param data - The parsed CSV data
-   * @return - A string found by serializing a Map with the above values
-   */
-  private String serialize(String result, List<List<String>> data) {
-    Moshi moshi = new Moshi.Builder().build();
-    Type mapStringObject = Types.newParameterizedType(Map.class, String.class, Object.class);
-    JsonAdapter<Map<String, Object>> adapter = moshi.adapter(mapStringObject);
-    Map<String, Object> responseMap = new HashMap<>();
-
-    responseMap.put("result", result);
-    responseMap.put("data", data);
-    return adapter.toJson(responseMap);
   }
 }

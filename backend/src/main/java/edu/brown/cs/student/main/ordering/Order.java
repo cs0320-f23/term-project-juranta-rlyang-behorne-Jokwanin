@@ -4,9 +4,19 @@ import info.debatty.java.stringsimilarity.Cosine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Takes a filtered database and organizes it into a list that goes from least to most similar movie
+ */
 public class Order {
 
     private ArrayList<ArrayList<String>> scoreList;
+
+    /**
+     * Returns a list of movies that has been ordered by least to most similar to a proved movie
+     * @param database the filtered database in the form HashMap<String, HashMap<String, String>>
+     * @param target the movie to which each will be compared to
+     * @return an ArrayList<HashMap<String, String>> that is an ordered form of the databse
+     */
     public ArrayList<HashMap<String, String>> order(HashMap<String, HashMap<String, String>> database, HashMap<String, String> target) {
         this.scoreList = new ArrayList<>();
         for (String key: database.keySet()) {
@@ -24,6 +34,13 @@ public class Order {
         return orderedMovie;
     }
 
+    /**
+     * Compares two movies and assigns a score based on their genres, writers, directors, year, and
+     * the cosine similarity of their description
+     * @param comparison the movie to be compared to the inputted movie
+     * @param target the inputted movie
+     * @return a double which represents the similarity score
+     */
     public Double compare(HashMap<String, String> comparison, HashMap<String, String> target) {
         double score = 0;
         String[] targetGenres = target.get("genre").split(",");
@@ -63,6 +80,12 @@ public class Order {
         return score;
     }
 
+    /**
+     * Takes a list of lists of strings, where each list contains the similarity score of a movie
+     * and the movie title, and performs merge sort on the list
+     * @param list
+     * @return the ordered version of the list based on the similarity score
+     */
     private ArrayList<ArrayList<String>> sort(ArrayList<ArrayList<String>> list) {
         if (list.size() <= 1) {
             return list;

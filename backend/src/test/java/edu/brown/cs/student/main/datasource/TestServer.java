@@ -84,8 +84,14 @@ public class TestServer {
         return clientConnection;
     }
 
+    /**
+     * Runs multiple tests to check if the server is properly handling both proper and improper requests
+     * @throws IOException
+     */
     @Test
     public void testQuery() throws IOException {
+
+        // Checks if the server returns the correct error message if no title is provided
         HttpURLConnection loadConnection1 =
                 tryRequest("recommendation");
         assertEquals(200, loadConnection1.getResponseCode());
@@ -100,6 +106,8 @@ public class TestServer {
                 adapter.fromJson(new Buffer().readFrom(loadConnection2.getInputStream()));
         Assertions.assertEquals("error_bad_request", body2.get("result"));
 
+        // Checks if the correct error message is sent if a title is provided which does not exist
+        // in our data
         HttpURLConnection loadConnection6 =
                 tryRequest("recommendation?target=asgafasf");
         assertEquals(200, loadConnection6.getResponseCode());
@@ -114,6 +122,8 @@ public class TestServer {
                 adapter.fromJson(new Buffer().readFrom(loadConnection7.getInputStream()));
         Assertions.assertEquals("error_datasource", body7.get("result"));
 
+
+        // Confirms that success messages are sent for proper inputs
         HttpURLConnection loadConnection3 =
                 tryRequest("recommendation?target=blade+runner");
         assertEquals(200, loadConnection3.getResponseCode());
