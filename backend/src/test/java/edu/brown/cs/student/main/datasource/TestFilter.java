@@ -87,13 +87,80 @@ public class TestFilter {
         System.out.println(orderedList);
         Assert.assertTrue(orderedList.get(2).get("title").equals("alien"));
     }
-    @Test
-    public void invalidMovie() throws IOException, FactoryFailureException {
-        String notMovie = "fasldf";
-        Filter filter = new Filter(this.testDatabase, this.genreDatabase, this.peopleDatabase);
-        Assert.assertNull(this.testDatabase.get(notMovie));
+
+
+    /**
+     * testGenreDatabase()
+     * - this test makes sure that movies with dissimilar genres are not grouped to together
+     */
+    @org.junit.Test
+    public void testGenreDatabase() throws IOException, FactoryFailureException {
+        // a movie whose genre is Drama
+        String dramaMovie = "my official wife";
+        System.out.println(this.genreDatabase.keySet());
+        org.testng.Assert.assertTrue(this.genreDatabase.get("drama").contains(dramaMovie));
+
     }
 
+    /**
+     * test name : testGenreDataBase2()
+     * - checks that if a movie has multiple genres, the genre database would have the
+     * movie as part of the values list for all genres it is applicable to
+     *
+     * @throws IOException
+     * @throws FactoryFailureException
+     */
+    @org.junit.Test
+    public void testGenreDatabase2() throws IOException, FactoryFailureException{
+        // genres that movie is applicable to: "Mystery, Romance, Short"
+        String movieName = "blade runner";
+        org.testng.Assert.assertTrue(this.genreDatabase.get("action").contains(movieName));
+        org.testng.Assert.assertTrue(this.genreDatabase.get("sci-fi").contains(movieName));
+        org.testng.Assert.assertTrue(this.genreDatabase.get("thriller").contains(movieName));
+    }
+
+    /**
+     * test name: testSetupPeopleDB()
+     * - randomly chose a director and checked if their movies were represented in the
+     * peopledatabase
+     * @throws IOException
+     * @throws FactoryFailureException
+     */
+    @org.junit.Test
+    public void testSetupPeopleDB() throws IOException, FactoryFailureException {
+        org.testng.Assert.assertTrue(peopleDatabase.get("nm0000631").contains("blade runner"));
+        org.testng.Assert.assertTrue(peopleDatabase.get("nm0000631").contains("1492: conquest of paradise"));
+        org.testng.Assert.assertTrue(peopleDatabase.get("nm0000631").contains("black rain"));
+
+        // checking if we have a director with all the movies that they have directed
+        // ridley scott
+        System.out.println(peopleDatabase.get("nm0000631"));
+    }
+
+    /**
+     * test name: testSetupPeopleDB2()
+     * - checks if our database for directors accounts for all directors, writers in csv data
+     * @throws IOException
+     * @throws FactoryFailureException
+     */
+    @org.junit.Test
+    public void testSetupPeopleDB2() throws IOException, FactoryFailureException{
+        org.testng.Assert.assertEquals(this.peopleDatabase.keySet().size(), 139453);
+    }
+
+    /**
+     * method name: testGenreCount
+     * - checks if all the genres represented in the csv are accounted for by the
+     * genredatabase
+     */
+    @org.junit.Test
+    public void testGenreCount(){
+        // https://help.imdb.com/article/contribution/titles/genres/GZDRMS6R742JRGAG#
+        /* link above represents all 28 genres, and the reason why our program accounts for
+         * 29 is because we have key represented as "\n" which represents movies that did not have
+         * an indicated genre*/
+        org.testng.Assert.assertEquals(this.genreDatabase.keySet().size(),  29);
+    }
 
 
 
