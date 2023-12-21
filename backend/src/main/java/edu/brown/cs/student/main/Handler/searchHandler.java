@@ -17,7 +17,17 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Handles calls to the search endpoint to find movies that have a title similar to the movie input
+ */
 public class searchHandler implements Route {
+
+  /**
+   * Makes a call to an api to search for movies based on a string input
+   * @param request
+   * @param response
+   * @return
+   */
   @Override
   public Object handle(Request request, Response response) {
 

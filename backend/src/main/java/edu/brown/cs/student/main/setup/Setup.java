@@ -16,6 +16,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 
+/**
+ * This class sets up a database of movies and their data in order to generate movie recommendations
+ * based off the stored data
+ */
 public class Setup {
 
   private ArrayList<ArrayList<String>> movieList;
@@ -23,35 +27,50 @@ public class Setup {
   private HashMap<String, String> directors;
   private HashMap<String, String> writers;
 
-    public Setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("data/ImdbTitleBasics.csv");
-        Search filterMovie = new Search(fileReader, "movie", "2", true, false);
-        this.movieList = filterMovie.beginSearch();
+    /**
+     * The constructor parses several csvs into in arraylists and into multiple maps that are to be used to
+     * create the backend.
+     * @throws IOException
+     * @throws FactoryFailureException
+     */
+  public Setup() throws IOException, FactoryFailureException {
+      FileReader fileReader = new FileReader("backend/data/ImdbTitleBasics.csv");
+      Search filterMovie = new Search(fileReader, "movie", "2", true, false);
+      this.movieList = filterMovie.beginSearch();
 
-        CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
-        fileReader = new FileReader("data/ImdbName.csv");
-        CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
-        ArrayList<ArrayList<String>> people = parsedName.parse();
-        this.nameMap = new HashMap<>();
-        for (ArrayList<String> person: people) {
-            this.nameMap.put(person.get(0), person.get(1));
-        }
+      CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
+      fileReader = new FileReader("backend/data/ImdbName.csv");
+      CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
+      ArrayList<ArrayList<String>> people = parsedName.parse();
+      this.nameMap = new HashMap<>();
+      for (ArrayList<String> person: people) {
+          this.nameMap.put(person.get(0), person.get(1));
+      }
 
-        fileReader = new FileReader("data/ImdbTitleCrew.csv");
-        CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
-        ArrayList<ArrayList<String>> crew = parsedCrew.parse();
-        this.directors = new HashMap<>();
-        for (ArrayList<String> director: crew) {
-            this.directors.put(director.get(0), director.get(1));
-        }
+      fileReader = new FileReader("backend/data/ImdbTitleCrew.csv");
+      CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
+      ArrayList<ArrayList<String>> crew = parsedCrew.parse();
+      this.directors = new HashMap<>();
+      for (ArrayList<String> director: crew) {
+          this.directors.put(director.get(0), director.get(1));
+      }
 
-        this.writers = new HashMap<>();
-        for (ArrayList<String> writer: crew) {
-            this.writers.put(writer.get(0), writer.get(2));
-        }
-    }
+      this.writers = new HashMap<>();
+      for (ArrayList<String> writer: crew) {
+          this.writers.put(writer.get(0), writer.get(2));
+      }
+  }
+
+    /**
+     * This method formulates a HashMap of strings to Hashmaps of strings to strings. This structure
+     * is meant to represent a database of movies, where each key is the movie name and the
+     * interior hashmap is data about the movie
+     * @return a database of about 5,000 movies in the form of HashMap<String, HashMap<String, String>>
+     * @throws IOException
+     * @throws FactoryFailureException
+     */
     public HashMap<String, HashMap<String, String>> setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("data/ImdbTitleRatings.csv");
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleRatings.csv");
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
         CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> ratings = parsedRatings.parse();
@@ -104,6 +123,11 @@ public class Setup {
     return movieDatabase;
   }
 
+    /**
+     * Creates a database where each key is a genre
+     * and the list is all movies that belong to that title
+     * @return a hashmap of strings to lists of strings to represent a database of genre to movies
+     */
   public HashMap<String, ArrayList<String>> setupGenre() {
     HashMap<String, ArrayList<String>> genreDatabase = new HashMap<>();
     for (ArrayList<String> movie : this.movieList) {
@@ -122,6 +146,11 @@ public class Setup {
     return genreDatabase;
   }
 
+    /**
+     * Sets up a database which maps a person, either a writer or director, to a list of movies that
+     * they had worked on
+     * @return a hashmap of strings to lists of strings that represents this database
+     */
     public HashMap<String, ArrayList<String>> setupPeopleDB() {
         HashMap<String, ArrayList<String>> peopleDatabase = new HashMap<>();
         for (ArrayList<String> movie:this.movieList) {
