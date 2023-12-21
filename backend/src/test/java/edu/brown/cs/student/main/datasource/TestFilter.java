@@ -87,11 +87,14 @@ public class TestFilter {
         System.out.println(orderedList);
         Assert.assertTrue(orderedList.get(2).get("title").equals("alien"));
     }
-
     @Test
     public void invalidMovie() throws IOException, FactoryFailureException {
         String notMovie = "fasldf";
         Filter filter = new Filter(this.testDatabase, this.genreDatabase, this.peopleDatabase);
         Assert.assertNull(this.testDatabase.get(notMovie));
     }
+
+
+
+
 }
