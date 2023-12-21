@@ -17,7 +17,25 @@ interface filtersProps{
     setMaxScore : Dispatch<SetStateAction<string>>;
 }
 
-
+/**
+ * 
+ * @param props 
+ * isCheckedDate -  boolean to see if date filter should be applied in next search
+ * setIsCheckedScore  - function to toggle isCheckedDate
+ * isCheckedScore - boolean to see if score filter should be applied in next search
+ * setIsCheckedScore - function to toggle isCheckedScore
+ * minMonth - the string representation for month for minimum date
+ * setMinMonth - function to change minMonth
+ * maxMonth - the string representation for month for maximum date
+ * setMaxMonth - function to change maxMonth
+ * minScore - the string representation for score for minimum score
+ * setMinScore - function to change minScore
+ * maxScore - the string representation for score for maximum score
+ * setMaxScore - function to change maxScore
+ * 
+ * 
+ * @returns - display for filters
+ */
 export function Filters(props : filtersProps){
 
     // function handleMinMonthChange(event: any) {
