@@ -102,7 +102,7 @@ export function SearchResults(props: SearchResultsProps){
      * toggle between CSS class for table data cell
      * @returns - HTML code for table displays
      */
-    function formatRow(movie : any, compareTo : string){
+    function formatRow(movie : any, compareTo : string, comparing :boolean){
         return(  
                 <tr>
                 <td className={compareTo}>
@@ -124,8 +124,10 @@ export function SearchResults(props: SearchResultsProps){
                         <p className='movie-output' aria-description={"Movie Overview: " + movie.overview}> {movie.overview} </p>
                         
                     </div>
-
-                    <div className="similar-movie-button">
+                    {comparing ? (
+                        <div></div>
+                    ): (
+                        <div className="similar-movie-button">
                         <button
                         className='similar-button'
                         aria-label= "Button to Find Similar Movies"
@@ -135,6 +137,8 @@ export function SearchResults(props: SearchResultsProps){
                         Find Similar Movies! 
                         </button>
                     </div>
+                    )}
+                    
                     </div></div>
                 </td>
                 </tr>
@@ -169,7 +173,7 @@ export function SearchResults(props: SearchResultsProps){
                     aria-description='Table contains a a list of movies similar 
                     to the one you chose in decending order'>
                     <tbody>
-                        {formatRow(compareMovie, "compare-cell")}
+                        {formatRow(compareMovie, "compare-cell",true)}
                         <br></br>
                         <br></br>
                         <h2 aria-label='Could not find similar movies!'>
@@ -195,11 +199,11 @@ export function SearchResults(props: SearchResultsProps){
                     aria-description='Table contains a a list of movies similar 
                     to the one you chose in decending order'>
                     <tbody>
-                        {formatRow(compareMovie, "compare-cell")}
+                        {formatRow(compareMovie, "compare-cell",true)}
                         <br></br>
                         <br></br>
                         {movieResults.map((eachMovie) => {
-                            return formatRow(eachMovie, "scrollable-cell");
+                            return formatRow(eachMovie, "scrollable-cell",false);
                         })}
                     </tbody>
                 </table>
@@ -232,7 +236,7 @@ export function SearchResults(props: SearchResultsProps){
                     to the one you chose in decending order'>
                     <tbody>
                         {movieResults.map((eachMovie) => {
-                            return formatRow(eachMovie, "scrollable-cell");
+                            return formatRow(eachMovie, "scrollable-cell", false);
                         })}
                     </tbody>
                 </table>
