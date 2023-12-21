@@ -28,7 +28,7 @@ export function MovieInput(props : MovieInputProps) {
   const [toggle, setToggle] = useState<string>("filters");
   const [toggled, setToggled] = useState<boolean>(false);
 
-  //Filter stuff
+  //Variables to be submitted for filters
   const [isCheckedDate, setIsCheckedDate] = useState<boolean>(true);
   const [isCheckedScore, setIsCheckedScore] = useState<boolean>(true);
   const [minMonth, setMinMonth] = useState<string>("");
@@ -38,7 +38,8 @@ export function MovieInput(props : MovieInputProps) {
   const [maxScore, setMaxScore] = useState('');
   /**
    * // This function is triggered when the button is clicked.
-   * Parses the input, executes the command, and updates the history.
+   * Parses the input, executes the command, and sends a 
+   * search URL request.
    */
   function handleSubmit(commandString: string) {
     if(commandString !== ""){
@@ -50,6 +51,8 @@ export function MovieInput(props : MovieInputProps) {
       const monthmin : string = minSplit[1];
       const monthmax : string = maxSplit[1];
       console.log(monthmin);
+      
+      //Sets up the parameters for every possible thing
 
       let searchURL :string = `search?search=` + commandString;
       if(minYear !== '' && isCheckedDate){
@@ -72,6 +75,7 @@ export function MovieInput(props : MovieInputProps) {
     }
 
   }
+  //The function that toggles the filter being clicked
   function handleFilterClick(){
     if(toggle === "filters"){
       setToggle("toggled");
