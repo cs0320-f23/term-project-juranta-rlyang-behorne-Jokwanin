@@ -1,6 +1,11 @@
 import '../../styles/filters.css';
 import { ChangeEvent, Dispatch, HtmlHTMLAttributes, SetStateAction, useState} from 'react';
 
+/**
+ * This is a class that contains all of the filters shown when the "filters"
+ * button is clicked. As of now it just includes release date and audience score
+ */
+
 interface filtersProps{
     isCheckedDate : boolean;
     setIsCheckedDate :  React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,18 +47,28 @@ export function Filters(props : filtersProps){
     //     console.log(event);
     //     //setMinMonth(event.target.value);
     // };
-
+    /**
+     * Function that changes the min month (and year) value so it's read to be
+     * read when submitted
+     * @param event The event that is called when it is changed
+     */
     const handleMinMonthChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.type)
         props.setMinMonth(event.target.value);
     };
 
+/**
+ * Same thing as above but for max month
+ * @param event 
+ */
     const handleMaxMonthChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         console.log(event.type)
         props.setMaxMonth(event.target.value);
     };
 
-    
+    /**
+     * The returned HTML for the filters, includes all of the inputable things
+     */
     return(
         <div>
             <p></p>
