@@ -4,6 +4,9 @@ import { useState } from 'react';
 import '../../styles/main.css';
 
 
+/**
+ * interface for SearchResults props search and compare and their setters
+ */
 interface SearchResultsProps{
     search : String;
     setSearch :React.Dispatch<React.SetStateAction<string>>;
@@ -13,7 +16,16 @@ interface SearchResultsProps{
 }
 
 
-
+/**
+ * Function handles the intricacies of the the output for search
+ * @param props search (string for endpoint of URL) and compare (boolean to 
+ * dicated if display should show simlar movie list or search results) and 
+ * setSearch (method for changing search) and setCompare 
+ * (method for changing compare)
+ * 
+ * @returns display of table of similar movie results or display of table of 
+ * search results
+ */
 export function SearchResults(props: SearchResultsProps){
     const [movieResults, setMovieResults] = useState<string[]>([]);
 
@@ -21,7 +33,6 @@ export function SearchResults(props: SearchResultsProps){
     
     
     const[compareMovie, setCompareMovie] = useState();
-
     function handleSimilarMovies(movie: any) {
         const date = movie.release_date.split("-");
         let movieSplit :string = ``;
@@ -54,6 +65,11 @@ export function SearchResults(props: SearchResultsProps){
         setCompareMovie(movie);
     
       }
+
+      /**
+       * fetches data from backend for every new search and toggles setLoading
+       * boolean 
+       */ 
     useEffect(() => {
         if(props.search !== ''){
             setLoading(true);
@@ -77,6 +93,15 @@ export function SearchResults(props: SearchResultsProps){
         }
     }, [props.search]);
 
+
+    /**
+     * creates table with with one table data per table row according to fetch 
+    // request return data
+     * @param movie 
+     * @param compareTo - string representation of CSS class header to enable 
+     * toggle between CSS class for table data cell
+     * @returns - HTML code for table displays
+     */
     function formatRow(movie : any, compareTo : string){
         return(  
                 <tr>
@@ -96,7 +121,7 @@ export function SearchResults(props: SearchResultsProps){
                         <h2 className='movie-title' aria-label={movie.title}> {movie.title} </h2>
                         <div className='movie-stats' aria-label={"Release Date: " + movie.release_date}> {"Release Date: " + movie.release_date} </div>
                         <div className='movie-stats' aria-label={"Movie Score: " + movie.vote_average}> {"Movie Score: " + movie.vote_average} </div>
-                        <p className='movie-output' aria-aria-description={"Movie Overview: " + movie.overview}> {movie.overview} </p>
+                        <p className='movie-output' aria-description={"Movie Overview: " + movie.overview}> {movie.overview} </p>
                         
                     </div>
 
@@ -115,6 +140,8 @@ export function SearchResults(props: SearchResultsProps){
                 </tr>
             )
     }
+    // Shows loading icon when loading is true/until fetch request returns a 
+    // result
     if(loading){
         return(
             <div>
@@ -122,11 +149,12 @@ export function SearchResults(props: SearchResultsProps){
                 <br></br>
                 <br></br>
             <div className='loader' aria-label='Loading Icon'
-            aria-aria-description='Image of loading Icon to signify buffering'></div>
+            aria-description='Image of loading Icon to signify buffering'></div>
             </div>
         )
     }
-
+    // Shows similar movies results when "Movies Similar To: " button is pressed
+    // in this case displays no results as no similarities could be found
     if(props.compare){
         if(movieResults.length === 0){
             return(
@@ -152,6 +180,8 @@ export function SearchResults(props: SearchResultsProps){
                 </div>
                 </div>
             )
+    // Shows similar movies results when "Movies Similar To: " button is pressed
+    // in this case displays results as similarities were found
         } else {
             return(
                 <div>
@@ -178,6 +208,7 @@ export function SearchResults(props: SearchResultsProps){
             )
         }
         
+    // If no movies were found upon search entry then "No Results!" is displayed
     } else {
         if(movieResults.length === 0){
             return(
@@ -190,6 +221,7 @@ export function SearchResults(props: SearchResultsProps){
                 </table>
                 </div>
             )
+        // Displays lists of movies that were found upon search entry
         } else {
             return(
                 <div>
