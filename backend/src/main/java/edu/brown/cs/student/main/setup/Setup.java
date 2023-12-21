@@ -24,12 +24,12 @@ public class Setup {
   private HashMap<String, String> writers;
 
     public Setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("data/ImdbTitleBasics.csv");
+        FileReader fileReader = new FileReader("/backend/data/ImdbTitleBasics.csv");
         Search filterMovie = new Search(fileReader, "movie", "2", true, false);
         this.movieList = filterMovie.beginSearch();
 
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
-        fileReader = new FileReader("data/ImdbName.csv");
+        fileReader = new FileReader("backend/data/ImdbName.csv");
         CsvParser<ArrayList<String>> parsedName = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> people = parsedName.parse();
         this.nameMap = new HashMap<>();
@@ -37,7 +37,7 @@ public class Setup {
             this.nameMap.put(person.get(0), person.get(1));
         }
 
-        fileReader = new FileReader("data/ImdbTitleCrew.csv");
+        fileReader = new FileReader("backend/data/ImdbTitleCrew.csv");
         CsvParser<ArrayList<String>> parsedCrew = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> crew = parsedCrew.parse();
         this.directors = new HashMap<>();
@@ -51,7 +51,7 @@ public class Setup {
         }
     }
     public HashMap<String, HashMap<String, String>> setup() throws IOException, FactoryFailureException {
-        FileReader fileReader = new FileReader("data/ImdbTitleRatings.csv");
+        FileReader fileReader = new FileReader("backend/data/ImdbTitleRatings.csv");
         CreatorFromRow<ArrayList<String>> creatorFromRow = new CreateArrayList();
         CsvParser<ArrayList<String>> parsedRatings = new CsvParser<>(fileReader, creatorFromRow);
         ArrayList<ArrayList<String>> ratings = parsedRatings.parse();
